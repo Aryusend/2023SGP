@@ -18,11 +18,9 @@
             android:orientation="horizontal">
 
 
-            <TextView
+            <com.spg2018184028.sprinter.GameView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:text="GameView" />
+                android:layout_height="match_parent"/>
 
 
         </LinearLayout>
