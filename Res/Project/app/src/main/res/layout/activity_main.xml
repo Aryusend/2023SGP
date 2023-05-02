@@ -6,13 +6,140 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:orientation="horizontal">
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="GameView" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:background="@color/gray"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="3"
+                    android:orientation="horizontal">
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="8"
+                        android:background="@color/gray"/>
+
+                    <ImageButton
+                        android:contentDescription="@string/button_description"
+                        android:id="@+id/ButtonLeft"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:src="@mipmap/button_left"
+                        android:scaleType="fitCenter"
+                        android:background="@color/gray"
+                        android:onClick="onClickLeftButton"
+                        android:layout_weight="10" />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="4"
+                        android:background="@color/gray"/>
+
+                    <ImageButton
+                        android:contentDescription="@string/button_description"
+                        android:id="@+id/ButtonRight"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:src="@mipmap/button_right"
+                        android:scaleType="fitCenter"
+                        android:background="@color/gray"
+                        android:onClick="onClickRightButton"
+                        android:layout_weight="10"/>
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="8"
+                        android:background="@color/gray"/>
+
+                    <ImageButton
+                        android:contentDescription="@string/button_description"
+                        android:id="@+id/ButtonJump"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:src="@mipmap/button_jump"
+                        android:scaleType="fitCenter"
+                        android:background="@color/gray"
+                        android:onClick="onClickJumpButton"
+                        android:layout_weight="8"/>
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="16"
+                        android:background="@color/gray"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="15"
+                        android:background="@color/gray"/>
+
+                    <ImageButton
+                        android:contentDescription="@string/button_description"
+                        android:id="@+id/ButtonPause"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:src="@mipmap/button_pause"
+                        android:scaleType="fitCenter"
+                        android:background="@color/gray"
+                        android:onClick="onClickPauseButton"
+                        android:layout_weight="1"/>
+
+
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
