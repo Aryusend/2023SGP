@@ -9,7 +9,7 @@ import com.spg2018184028.sprinter.framework.Metrics;
 public class MainScene extends BaseScene {
     public static final Player player = new Player();
     public enum Layer {
-        bg, ground, item, player, weapon, controller, COUNT
+        bg, ground, item, player, weapon, enemy, controller, COUNT
     }
 
     public MainScene() {
@@ -24,6 +24,9 @@ public class MainScene extends BaseScene {
 
         add(Layer.item,new Item(5,6,0));
         add(Layer.item,new Item(22,6,1));
+
+        add(Layer.enemy, new Enemy(7,6));
+        add(Layer.enemy, new Enemy(20,6));
 
         add(Layer.player, player);
         add(Layer.weapon, new Weapon(player.GetX(),player.GetY()));
