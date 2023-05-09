@@ -38,8 +38,9 @@ public class MainActivity extends AppCompatActivity {
         Log.d(TAG, "right button clicked!!");
     }
 
-    public void onClickJumpButton(View view) {
-        Log.d(TAG, "jump button clicked!!");
+    public void onClickJumpButton(View view)
+    {
+        MainScene.player.Jump();
     }
 
     public void onClickPauseButton(View view) {
