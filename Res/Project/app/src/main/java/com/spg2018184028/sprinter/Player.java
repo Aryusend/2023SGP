@@ -2,13 +2,15 @@ package com.spg2018184028.sprinter;
 
 import android.graphics.Canvas;
 import android.graphics.Rect;
+import android.graphics.RectF;
 import android.util.Log;
 
 import com.spg2018184028.sprinter.R;
 import com.spg2018184028.sprinter.framework.AnimSprite;
 import com.spg2018184028.sprinter.framework.BaseScene;
+import com.spg2018184028.sprinter.framework.IBoxCollidable;
 
-public class Player extends AnimSprite {
+public class Player extends AnimSprite implements IBoxCollidable {
     public static final String TAG = Player.class.getSimpleName();
     private final float ground;
     private float jumpSpeed;
@@ -78,6 +80,10 @@ public class Player extends AnimSprite {
         }
         //Log.d(TAG, "jump button clicked!!");
     }
+    @Override
+    public RectF getCollisionRect() {
+        return dstRect;
+    }
 
     public void ChangeMoveDir(int dir)
     {
@@ -98,4 +104,6 @@ public class Player extends AnimSprite {
     {
         return moveDir;
     }
+
+
 }

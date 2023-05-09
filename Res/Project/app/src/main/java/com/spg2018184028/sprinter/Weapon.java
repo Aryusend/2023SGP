@@ -2,11 +2,13 @@ package com.spg2018184028.sprinter;
 
 import android.graphics.Canvas;
 import android.graphics.Rect;
+import android.graphics.RectF;
 
 import com.spg2018184028.sprinter.framework.BaseScene;
+import com.spg2018184028.sprinter.framework.IBoxCollidable;
 import com.spg2018184028.sprinter.framework.Sprite;
 
-public class Weapon  extends Sprite {
+public class Weapon  extends Sprite implements IBoxCollidable {
     static int resIds = R.mipmap.items;
 
     public Weapon(float x, float y) {
@@ -40,6 +42,11 @@ public class Weapon  extends Sprite {
         y= MainScene.player.GetY()+0.3f;
 
         fixDstRect();
+    }
+
+    @Override
+    public RectF getCollisionRect() {
+        return dstRect;
     }
 
 }
