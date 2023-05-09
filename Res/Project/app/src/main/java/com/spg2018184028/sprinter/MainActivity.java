@@ -30,12 +30,14 @@ public class MainActivity extends AppCompatActivity {
         pauseButton = findViewById(R.id.ButtonPause);
     }
 
-    public void onClickLeftButton(View view) {
-        Log.d(TAG, "left button clicked!!");
+    public void onClickLeftButton(View view)
+    {
+        MainScene.player.ChangeMoveDir(-1);
     }
 
-    public void onClickRightButton(View view) {
-        Log.d(TAG, "right button clicked!!");
+    public void onClickRightButton(View view)
+    {
+        MainScene.player.ChangeMoveDir(1);
     }
 
     public void onClickJumpButton(View view)
