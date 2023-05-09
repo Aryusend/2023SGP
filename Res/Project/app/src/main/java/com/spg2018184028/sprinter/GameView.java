@@ -47,16 +47,18 @@ public class GameView extends View implements Choreographer.FrameCallback {
         running = true;
         Choreographer.getInstance().postFrameCallback(this);
 
+
         if (BuildConfig.DEBUG) {
             fpsPaint = new Paint();
             fpsPaint.setColor(Color.BLUE);
-            fpsPaint.setTextSize(100f);
+            fpsPaint.setTextSize(30f);
 
             borderPaint = new Paint();
             borderPaint.setColor(Color.RED);
             borderPaint.setStyle(Paint.Style.STROKE);
             borderPaint.setStrokeWidth(0.1f);
         }
+
         //setFullScreen();
     }
 
