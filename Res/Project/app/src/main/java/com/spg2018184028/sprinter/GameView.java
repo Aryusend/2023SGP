@@ -49,6 +49,7 @@ public class GameView extends View implements Choreographer.FrameCallback {
 
 
         if (BuildConfig.DEBUG) {
+
             fpsPaint = new Paint();
             fpsPaint.setColor(Color.BLUE);
             fpsPaint.setTextSize(30f);
@@ -57,6 +58,7 @@ public class GameView extends View implements Choreographer.FrameCallback {
             borderPaint.setColor(Color.RED);
             borderPaint.setStyle(Paint.Style.STROKE);
             borderPaint.setStrokeWidth(0.1f);
+
         }
 
         //setFullScreen();
@@ -112,14 +114,14 @@ public class GameView extends View implements Choreographer.FrameCallback {
         }
 
         if (BuildConfig.DEBUG) {
-            canvas.drawRect(0, 0, Metrics.game_width, Metrics.game_height, borderPaint);
+            //canvas.drawRect(0, 0, Metrics.game_width, Metrics.game_height, borderPaint);
         }
         canvas.restore();
 
         if (BuildConfig.DEBUG && BaseScene.frameTime > 0) {
             int fps = (int) (1.0f / BaseScene.frameTime);
             int count = (scene != null) ? scene.count() : 0;
-            canvas.drawText("FPS: " + fps + " objs: " + count, 100f, 200f, fpsPaint);
+            //canvas.drawText("FPS: " + fps + " objs: " + count, 100f, 200f, fpsPaint);
         }
     }
 
