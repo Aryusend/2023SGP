@@ -51,7 +51,14 @@ public class Player extends AnimSprite implements IBoxCollidable {
             rects = srcRects[0];
         }
         int frameIndex = Math.round(time * fps) % rects.length;
-        canvas.drawBitmap(bitmap, rects[frameIndex], dstRect, null);
+        if(moveDir!=0)
+        {
+            canvas.drawBitmap(bitmap, rects[frameIndex], dstRect, null);
+        }
+        else
+        {
+            canvas.drawBitmap(bitmap, rects[0], dstRect, null);
+        }
     }
 
     @Override

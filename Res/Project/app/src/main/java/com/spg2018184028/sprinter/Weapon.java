@@ -8,7 +8,7 @@ import com.spg2018184028.sprinter.framework.BaseScene;
 import com.spg2018184028.sprinter.framework.IBoxCollidable;
 import com.spg2018184028.sprinter.framework.Sprite;
 
-public class Weapon  extends Sprite implements IBoxCollidable {
+public class Weapon extends Sprite implements IBoxCollidable {
     static int resIds = R.mipmap.items;
 
     public Weapon(float x, float y) {

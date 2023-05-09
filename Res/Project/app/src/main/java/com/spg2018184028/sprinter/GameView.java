@@ -114,7 +114,7 @@ public class GameView extends View implements Choreographer.FrameCallback {
         }
 
         if (BuildConfig.DEBUG) {
-            //canvas.drawRect(0, 0, Metrics.game_width, Metrics.game_height, borderPaint);
+            canvas.drawRect(0, 0, Metrics.game_width, Metrics.game_height, borderPaint);
         }
         canvas.restore();
 
