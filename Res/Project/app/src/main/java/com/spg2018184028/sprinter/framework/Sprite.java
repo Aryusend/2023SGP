@@ -5,6 +5,7 @@ import android.graphics.Canvas;
 import android.graphics.RectF;
 import android.util.Log;
 
+
 import com.spg2018184028.sprinter.framework.IGameObject;
 import com.spg2018184028.sprinter.framework.BitmapPool;
 
@@ -13,6 +14,8 @@ public class Sprite implements IGameObject {
     protected Bitmap bitmap;
     protected RectF dstRect = new RectF();
     protected float x, y, width, height;
+
+    protected Sprite() {}
     public Sprite(int bitmapResId, float cx, float cy, float width, float height) {
         this.x = cx;
         this.y = cy;
