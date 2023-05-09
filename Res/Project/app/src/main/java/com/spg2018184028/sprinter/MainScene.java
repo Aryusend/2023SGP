@@ -1,5 +1,6 @@
 package com.spg2018184028.sprinter;
 
+import com.spg2018184028.sprinter.framework.Background;
 import com.spg2018184028.sprinter.framework.BaseScene;
 import com.spg2018184028.sprinter.framework.Metrics;
 
@@ -17,6 +18,7 @@ public class MainScene extends BaseScene {
         {
             add(Layer.ground, new Ground(i*2+2.5f,8));
         }
+        add(Layer.bg, new Background(R.mipmap.sky));
         add(Layer.player, player);
         add(Layer.weapon, new Weapon(player.GetX(),player.GetY()));
     }

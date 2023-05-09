@@ -63,6 +63,8 @@ public class Player extends AnimSprite {
             }
             y += dy;
         }
+        //String msg = String.format("x : %f / y : %f",x,y);
+        //Log.d(TAG, msg);
         x += moveSpeed * moveDir;
         fixDstRect();
     }
