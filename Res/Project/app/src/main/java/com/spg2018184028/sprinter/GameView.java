@@ -7,7 +7,6 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.view.Choreographer;
-import android.view.MotionEvent;
 import android.view.View;
 
 import com.spg2018184028.sprinter.BuildConfig;
@@ -120,15 +119,6 @@ public class GameView extends View implements Choreographer.FrameCallback {
             int count = (scene != null) ? scene.count() : 0;
             canvas.drawText("FPS: " + fps + " objs: " + count, 100f, 200f, fpsPaint);
         }
-    }
-
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        boolean handled = BaseScene.getTopScene().onTouchEvent(event);
-        if (handled) {
-            return true;
-        }
-        return super.onTouchEvent(event);
     }
 
     public void pauseGame() {

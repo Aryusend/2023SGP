@@ -133,10 +133,6 @@ public class BaseScene {
         return layers.get(layerEnum.ordinal());
     }
 
-    public boolean onTouchEvent(MotionEvent event) {
-        return false;
-    }
-
     public boolean clipsRect() {
         return true;
     }

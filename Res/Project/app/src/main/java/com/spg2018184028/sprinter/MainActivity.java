@@ -7,13 +7,21 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 
+import com.spg2018184028.sprinter.framework.BaseScene;
+
 public class MainActivity extends AppCompatActivity {
     public static final String TAG = MainActivity.class.getSimpleName();
+
+    private GameView gameView;
     private ImageButton leftButton, rightButton, jumpButton, pauseButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        gameView = new GameView(this);
+        new MainScene().pushScene();
+
         setContentView(R.layout.activity_main);
 
         leftButton = findViewById(R.id.ButtonLeft);
@@ -36,5 +44,22 @@ public class MainActivity extends AppCompatActivity {
 
     public void onClickPauseButton(View view) {
         Log.d(TAG, "pause button clicked!!");
+    }
+
+    protected void onPause() {
+        gameView.pauseGame();
+        super.onPause();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        gameView.resumeGame();
+    }
+
+    @Override
+    protected void onDestroy() {
+        BaseScene.popAll();
+        super.onDestroy();
     }
 }
