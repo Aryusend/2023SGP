@@ -9,4 +9,9 @@ public class Background extends Sprite {
         float height = bitmap.getHeight() * Metrics.game_width / bitmap.getWidth();
         setSize(Metrics.game_width, height);
     }
+
+    public Background(int bitmapResId, float x, float y, float width, float height)
+    {
+        super(bitmapResId, x, y, width, height);
+    }
 }
