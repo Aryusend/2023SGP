@@ -75,6 +75,16 @@ public class Player extends AnimSprite implements IBoxCollidable {
         //String msg = String.format("x : %f / y : %f",x,y);
         //Log.d(TAG, msg);
         x += moveSpeed * moveDir;
+        if(x < 2.5)
+        {
+            moveDir = -1;
+            x+=moveSpeed;
+        }
+        else if(x>24.5)
+        {
+            moveDir = 1;
+            x-=moveSpeed;
+        }
         fixDstRect();
     }
 
