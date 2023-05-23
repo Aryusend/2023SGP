@@ -22,6 +22,9 @@ public class MainScene extends BaseScene {
             add(Layer.ground, new Ground(i*2+2.5f,8));
         }
         add(Layer.bg, new Background(R.mipmap.sky));
+        add(Layer.bg, new Background(R.mipmap.bg1,13.5f,2.5f,24.0f,9.0f));
+        add(Layer.bg, new Background(R.mipmap.wall,0.5f,7.0f,2.0f,8.0f));
+        add(Layer.bg, new Background(R.mipmap.wall,26.5f,7.0f,2.0f,8.0f));
 
         add(Layer.item,new Item(5,6,0));
         add(Layer.item,new Item(22,6,1));
