@@ -3,6 +3,7 @@ package com.spg2018184028.sprinter;
 import com.spg2018184028.sprinter.framework.Background;
 import com.spg2018184028.sprinter.framework.BaseScene;
 import com.spg2018184028.sprinter.framework.CollisionChecker;
+import com.spg2018184028.sprinter.framework.EnemyGenerator;
 import com.spg2018184028.sprinter.framework.Item;
 import com.spg2018184028.sprinter.framework.Metrics;
 
@@ -29,8 +30,7 @@ public class MainScene extends BaseScene {
         add(Layer.item,new Item(5,6,0));
         add(Layer.item,new Item(22,6,1));
 
-        add(Layer.enemy, new Enemy(7,6));
-        add(Layer.enemy, new Enemy(20,6));
+        add(Layer.controller, new EnemyGenerator());
 
         add(Layer.player, player);
 

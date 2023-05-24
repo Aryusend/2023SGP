@@ -4,6 +4,7 @@ import android.graphics.Canvas;
 
 import java.util.ArrayList;
 
+import com.spg2018184028.sprinter.Enemy;
 import com.spg2018184028.sprinter.MainScene;
 import com.spg2018184028.sprinter.Weapon;
 import com.spg2018184028.sprinter.framework.IBoxCollidable;
