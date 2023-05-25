@@ -10,7 +10,7 @@ import com.spg2018184028.sprinter.R;
 
 public class Item extends Sprite implements IBoxCollidable {
     static int resIds = R.mipmap.items;
-    private int itemId;
+    public int itemId;
 
     private float fallSpeed = 0;
 

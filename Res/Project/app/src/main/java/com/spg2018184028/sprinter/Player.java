@@ -1,6 +1,7 @@
 package com.spg2018184028.sprinter;
 
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.util.Log;
@@ -8,6 +9,7 @@ import android.util.Log;
 import com.spg2018184028.sprinter.R;
 import com.spg2018184028.sprinter.framework.AnimSprite;
 import com.spg2018184028.sprinter.framework.BaseScene;
+import com.spg2018184028.sprinter.framework.Gauge;
 import com.spg2018184028.sprinter.framework.IBoxCollidable;
 
 public class Player extends AnimSprite implements IBoxCollidable {
@@ -18,9 +20,21 @@ public class Player extends AnimSprite implements IBoxCollidable {
     private static final float GRAVITY = 18.0f;
     private float moveSpeed = 0.04f;
     private int moveDir = 0;
+
+    private Gauge hpGauge = new Gauge(0.1f, R.color.red,R.color.gray_600);
+    public float maxHp = 20;
+    public float curHp = 0;
+
+    private Gauge expGauge = new Gauge(0.1f, R.color.yellow,R.color.white);
+
+    public int level = 0;
+
+    public float[] reqExp = { 10, 20, 30, 40, 50 };
+    public float curExp = 0;
     public Player() {
         super(R.mipmap.player, 13.5f, 6, 2.0f, 2.0f, 8, 2);
         this.ground = y;
+        curHp = maxHp;
     }
     protected enum State
     {
@@ -36,6 +50,7 @@ public class Player extends AnimSprite implements IBoxCollidable {
                     new Rect(16, 16+1, 32, 32+1),
             }
     };
+
 
     @Override
     public void draw(Canvas canvas) {
@@ -59,6 +74,18 @@ public class Player extends AnimSprite implements IBoxCollidable {
         {
             canvas.drawBitmap(bitmap, rects[0], dstRect, null);
         }
+
+        canvas.save();
+        canvas.translate(15.0f, 1f);
+        canvas.scale(10.0f, 10.0f);
+        hpGauge.draw(canvas, curHp / maxHp);
+        canvas.restore();
+
+        canvas.save();
+        canvas.translate(0f, 0.2f);
+        canvas.scale(27.0f, 6.0f);
+        expGauge.draw(canvas, curExp / reqExp[level]);
+        canvas.restore();
     }
 
     @Override
@@ -84,6 +111,15 @@ public class Player extends AnimSprite implements IBoxCollidable {
         {
             moveDir = 1;
             x-=moveSpeed;
+        }
+
+        if(curHp>maxHp)
+        {
+            curHp = maxHp;
+        }
+        if(curExp>=reqExp[level])
+        {
+            curExp = 0;
         }
         fixDstRect();
     }

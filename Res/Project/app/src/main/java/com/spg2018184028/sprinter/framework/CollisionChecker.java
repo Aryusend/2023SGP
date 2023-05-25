@@ -64,31 +64,18 @@ public class CollisionChecker implements IGameObject {
                 Item item = (Item) gobj;
                 if(item.state== Item.State.interactive)
                 {
+                    if(item.itemId==1)
+                    {
+                        MainScene.player.curExp++;
+                    }
+                    if(item.itemId==0)
+                    {
+                        MainScene.player.curHp++;
+                    }
                     scene.remove(MainScene.Layer.item, gobj);
                 }
             }
         }
-        /*
-        for (int i = items.size() - 1; i >= 0; i--) {
-            IGameObject gobj = items.get(i);
-            if (!(gobj instanceof IBoxCollidable)) {
-                continue;
-            }
-            if (CollisionHelper.collides(MainScene.player, (IBoxCollidable) gobj)) {
-                scene.remove(MainScene.Layer.item, gobj);
-            }
-        }
-        for (int i = enemys.size() - 1; i >= 0; i--) {
-            IGameObject gobj = enemys.get(i);
-            if (!(gobj instanceof IBoxCollidable)) {
-                continue;
-            }
-            if (CollisionHelper.collides(weapon, (IBoxCollidable) gobj)) {
-                scene.remove(MainScene.Layer.enemy, gobj);
-                scene.add(MainScene.Layer.item, new Item(weapon.x, weapon.y, 0));
-            }
-        }
-        */
     }
 
     @Override
