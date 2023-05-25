@@ -35,15 +35,36 @@ public class Enemy extends AnimSprite implements IBoxCollidable {
             new Rect[] {
                     new Rect(0, 0, 16, 16),
                     new Rect(16 + 1, 0, 32 + 1, 16),
+            },
+            new Rect[]{
+                    new Rect(0,16+1,16,32+1)
+            },
+            new Rect[]{
+                    new Rect(16+1,16+1,32+1,32+1)
             }
     };
     @Override
     public void draw(Canvas canvas) {
         long now = System.currentTimeMillis();
         float time = (now - createdOn) / 1000.0f;
-        Rect[] rects;
-        rects = srcRects[0];
-        int frameIndex = Math.round(time * fps) % rects.length;
+        Rect[] rects = null;
+        if(state==State.spawn)
+        {
+            rects = srcRects[1];
+        }
+        else if(state==State.common)
+        {
+            rects = srcRects[0];
+        }
+        else if(state==State.dead)
+        {
+            rects = srcRects[2];
+        }
+        int frameIndex = 0;
+        if(rects!=null)
+        {
+            frameIndex = Math.round(time * fps) % rects.length;
+        }
         canvas.drawBitmap(bitmap, rects[frameIndex], dstRect, null);
     }
     @Override
@@ -90,13 +111,13 @@ public class Enemy extends AnimSprite implements IBoxCollidable {
 
         if(x < 2.5)
         {
-            moveDir = -1;
             x+=moveSpeed;
+            moveDir = 1;
         }
         else if(x>24.5)
         {
-            moveDir = 1;
             x-=moveSpeed;
+            moveDir = -1;
         }
         fixDstRect();
     }
