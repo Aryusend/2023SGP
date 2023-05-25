@@ -2,6 +2,7 @@ package com.spg2018184028.sprinter;
 
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.util.Log;
@@ -26,15 +27,20 @@ public class Player extends AnimSprite implements IBoxCollidable {
     public float curHp = 0;
 
     private Gauge expGauge = new Gauge(0.1f, R.color.yellow,R.color.white);
-
-    public int level = 0;
-
-    public float[] reqExp = { 10, 20, 30, 40, 50 };
+    public float reqExp;
     public float curExp = 0;
+
+    protected Paint timePaint;
+    private float eTime = 0;
     public Player() {
         super(R.mipmap.player, 13.5f, 6, 2.0f, 2.0f, 8, 2);
         this.ground = y;
         curHp = maxHp;
+        reqExp = 10;
+
+        timePaint = new Paint();
+        timePaint.setColor(Color.BLACK);
+        timePaint.setTextSize(0.5f);
     }
     public enum State
     {
@@ -54,8 +60,6 @@ public class Player extends AnimSprite implements IBoxCollidable {
                     new Rect(16, 16+1, 32, 32+1),
             }
     };
-
-
     @Override
     public void draw(Canvas canvas) {
         long now = System.currentTimeMillis();
@@ -88,12 +92,21 @@ public class Player extends AnimSprite implements IBoxCollidable {
         canvas.save();
         canvas.translate(0f, 0.2f);
         canvas.scale(27.0f, 6.0f);
-        expGauge.draw(canvas, curExp / reqExp[level]);
+        expGauge.draw(canvas, curExp / reqExp);
+        canvas.restore();
+
+        canvas.save();
+        canvas.drawText("다음 적 등장까지" + (120 - (int)eTime)+"초", 1.0f, 1.6f, timePaint);
         canvas.restore();
     }
 
     @Override
     public void update() {
+        eTime += BaseScene.frameTime;
+        if(eTime>120)
+        {
+            eTime = 0;
+        }
         if (state == State.jump) {
             float dy = jumpSpeed * BaseScene.frameTime;
             jumpSpeed += GRAVITY * BaseScene.frameTime;
@@ -116,8 +129,9 @@ public class Player extends AnimSprite implements IBoxCollidable {
             moveDir = 1;
             x-=moveSpeed;
         }
-        if(curExp>=reqExp[level])
+        if(curExp>=reqExp)
         {
+            reqExp= (float) Math.floor((double) (reqExp + reqExp/2));
             curExp = 0;
         }
 
