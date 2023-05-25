@@ -3,6 +3,7 @@ package com.spg2018184028.sprinter.framework;
 import android.graphics.Canvas;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import com.spg2018184028.sprinter.Enemy;
 import com.spg2018184028.sprinter.MainScene;
@@ -31,11 +32,40 @@ public class CollisionChecker implements IGameObject {
             Enemy enemy = (Enemy) o1;
             if (CollisionHelper.collides(enemy, MainScene.player))
             {
+                if(enemy.state== Enemy.State.common)
+                {
 
+                }
             }
             if(CollisionHelper.collides(enemy, weapon))
             {
-                enemy.state = Enemy.State.dead;
+                if(enemy.state== Enemy.State.common)
+                {
+                    enemy.state = Enemy.State.dead;
+                    Random r = new Random();
+                    int n = r.nextInt(100);
+                    if(n<15)
+                    {
+                        scene.add(MainScene.Layer.item,new Item(enemy.x,enemy.y,0));
+                    }
+                    else
+                    {
+                        scene.add(MainScene.Layer.item,new Item(enemy.x,enemy.y,1));
+                    }
+                }
+            }
+        }
+        for (int i = items.size() - 1; i >= 0; i--) {
+            IGameObject gobj = items.get(i);
+            if (!(gobj instanceof IBoxCollidable)) {
+                continue;
+            }
+            if (CollisionHelper.collides(MainScene.player, (IBoxCollidable) gobj)) {
+                Item item = (Item) gobj;
+                if(item.state== Item.State.interactive)
+                {
+                    scene.remove(MainScene.Layer.item, gobj);
+                }
             }
         }
         /*

@@ -8,10 +8,10 @@ import java.util.Random;
 import com.spg2018184028.sprinter.framework.AnimSprite;
 import com.spg2018184028.sprinter.framework.BaseScene;
 import com.spg2018184028.sprinter.framework.IBoxCollidable;
+import com.spg2018184028.sprinter.framework.Item;
 import com.spg2018184028.sprinter.framework.Sprite;
 
 public class Enemy extends AnimSprite implements IBoxCollidable {
-
     float lifeTime = 0;
     static int[] enemy_ResIds = {
             R.mipmap.e1
@@ -25,7 +25,6 @@ public class Enemy extends AnimSprite implements IBoxCollidable {
         spawn, common, dead
     }
     public State state = State.spawn;
-
     public Enemy(float x, float y, int _id, float _speed) {
         super(enemy_ResIds[_id], x, y, 2.0f, 2.0f, 8, 2);
         id = _id;
@@ -124,13 +123,6 @@ public class Enemy extends AnimSprite implements IBoxCollidable {
 
     @Override
     public RectF getCollisionRect() {
-        if(state==State.common)
-        {
-            return dstRect;
-        }
-        else
-        {
-            return new RectF(0,0,0,0);
-        }
+        return dstRect;
     }
 }
