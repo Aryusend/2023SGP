@@ -23,7 +23,22 @@ public class CollisionChecker implements IGameObject {
     public void update() {
         MainScene scene = (MainScene) BaseScene.getTopScene();
         ArrayList<IGameObject> items = scene.getObjectsAt(MainScene.Layer.item);
-        ArrayList<IGameObject> enemys = scene.getObjectsAt(MainScene.Layer.enemy);
+        ArrayList<IGameObject> enemies = scene.getObjectsAt(MainScene.Layer.enemy);
+        for (IGameObject o1 : enemies) {
+            if (!(o1 instanceof Enemy)) {
+                continue;
+            }
+            Enemy enemy = (Enemy) o1;
+            if (CollisionHelper.collides(enemy, MainScene.player))
+            {
+
+            }
+            if(CollisionHelper.collides(enemy, weapon))
+            {
+                enemy.state = Enemy.State.dead;
+            }
+        }
+        /*
         for (int i = items.size() - 1; i >= 0; i--) {
             IGameObject gobj = items.get(i);
             if (!(gobj instanceof IBoxCollidable)) {
@@ -40,8 +55,10 @@ public class CollisionChecker implements IGameObject {
             }
             if (CollisionHelper.collides(weapon, (IBoxCollidable) gobj)) {
                 scene.remove(MainScene.Layer.enemy, gobj);
+                scene.add(MainScene.Layer.item, new Item(weapon.x, weapon.y, 0));
             }
         }
+        */
     }
 
     @Override

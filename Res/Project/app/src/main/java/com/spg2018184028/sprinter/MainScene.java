@@ -27,9 +27,6 @@ public class MainScene extends BaseScene {
         add(Layer.bg, new Background(R.mipmap.wall,0.5f,7.0f,2.0f,8.0f));
         add(Layer.bg, new Background(R.mipmap.wall,26.5f,7.0f,2.0f,8.0f));
 
-        add(Layer.item,new Item(5,6,0));
-        add(Layer.item,new Item(22,6,1));
-
         add(Layer.controller, new EnemyGenerator());
 
         add(Layer.player, player);

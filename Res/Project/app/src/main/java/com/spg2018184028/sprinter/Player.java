@@ -24,7 +24,7 @@ public class Player extends AnimSprite implements IBoxCollidable {
     }
     protected enum State
     {
-        running, jump, falling, COUNT;
+        running, jump, falling, damaged, COUNT;
     }
     protected static Rect[][] srcRects = {
             new Rect[] {

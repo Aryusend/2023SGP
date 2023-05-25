@@ -21,7 +21,7 @@ public class Enemy extends AnimSprite implements IBoxCollidable {
     private float moveSpeed;
     private int moveDir=0;
 
-    protected enum State{
+    public enum State{
         spawn, common, dead
     }
     public State state = State.spawn;
@@ -53,7 +53,7 @@ public class Enemy extends AnimSprite implements IBoxCollidable {
         {
             if(state==State.spawn)
             {
-                y-=0.04;
+                y-=0.01;
                 if(y<6)
                 {
                     state=State.common;
@@ -68,13 +68,22 @@ public class Enemy extends AnimSprite implements IBoxCollidable {
                     }
                 }
             }
-            if(state== State.common)
+            else if(state== State.common)
             {
                 x += moveDir * moveSpeed;
                 if(lifeTime>3)
                 {
                     moveDir*=-1;
                     lifeTime = 0;
+                }
+            }
+            else if(state== State.dead)
+            {
+                y+=0.04;
+                if(y>9)
+                {
+                    MainScene scene = (MainScene) BaseScene.getTopScene();
+                    scene.remove(MainScene.Layer.enemy,this);
                 }
             }
         }
