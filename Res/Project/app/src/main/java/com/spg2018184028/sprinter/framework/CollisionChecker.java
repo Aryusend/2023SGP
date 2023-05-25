@@ -7,6 +7,7 @@ import java.util.Random;
 
 import com.spg2018184028.sprinter.Enemy;
 import com.spg2018184028.sprinter.MainScene;
+import com.spg2018184028.sprinter.Player;
 import com.spg2018184028.sprinter.Weapon;
 import com.spg2018184028.sprinter.framework.IBoxCollidable;
 import com.spg2018184028.sprinter.framework.IGameObject;
@@ -32,9 +33,10 @@ public class CollisionChecker implements IGameObject {
             Enemy enemy = (Enemy) o1;
             if (CollisionHelper.collides(enemy, MainScene.player))
             {
-                if(enemy.state== Enemy.State.common)
+                if(enemy.state== Enemy.State.common && !MainScene.player.isDamaged)
                 {
-
+                    MainScene.player.curHp--;
+                    MainScene.player.isDamaged = true;
                 }
             }
             if(CollisionHelper.collides(enemy, weapon))
@@ -70,7 +72,10 @@ public class CollisionChecker implements IGameObject {
                     }
                     if(item.itemId==0)
                     {
-                        MainScene.player.curHp++;
+                        if(MainScene.player.curHp<MainScene.player.maxHp)
+                        {
+                            MainScene.player.curHp++;
+                        }
                     }
                     scene.remove(MainScene.Layer.item, gobj);
                 }

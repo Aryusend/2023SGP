@@ -36,10 +36,14 @@ public class Player extends AnimSprite implements IBoxCollidable {
         this.ground = y;
         curHp = maxHp;
     }
-    protected enum State
+    public enum State
     {
-        running, jump, falling, damaged, COUNT;
+        running, jump, falling, COUNT;
     }
+    public State state = State.running;
+
+    public Boolean isDamaged = false;
+    private float damagedTime = 0;
     protected static Rect[][] srcRects = {
             new Rect[] {
                     new Rect(0, 0, 16, 16),
@@ -112,19 +116,22 @@ public class Player extends AnimSprite implements IBoxCollidable {
             moveDir = 1;
             x-=moveSpeed;
         }
-
-        if(curHp>maxHp)
-        {
-            curHp = maxHp;
-        }
         if(curExp>=reqExp[level])
         {
             curExp = 0;
         }
+
+        if(isDamaged)
+        {
+            damagedTime += BaseScene.frameTime;
+            if(damagedTime>1.0f)
+            {
+                damagedTime = 0;
+                isDamaged = false;
+            }
+        }
         fixDstRect();
     }
-
-    protected State state = State.running;
     public void Jump()
     {
         if (state == State.running) {
