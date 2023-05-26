@@ -16,12 +16,16 @@ public class Enemy extends AnimSprite implements IBoxCollidable {
     static int[] enemy_ResIds = {
             R.mipmap.e1,
             R.mipmap.e2,
-            R.mipmap.e3
+            R.mipmap.e3,
+            R.mipmap.e4,
+            R.mipmap.e5,
+            R.mipmap.e6
     };
     static private Random r = new Random();
     private int id;
     private float moveSpeed;
     private int moveDir=0;
+    private int moveDirY = 1;
 
     private float fallSpeed = 0;
     private float jumpCoolTime = 0;
@@ -56,6 +60,10 @@ public class Enemy extends AnimSprite implements IBoxCollidable {
         {
             DrawRabbit(canvas, time);
         }
+        else if(id>=3 && id < 6)
+        {
+            DrawBat(canvas,time);
+        }
     }
     @Override
     public void update() {
@@ -63,6 +71,10 @@ public class Enemy extends AnimSprite implements IBoxCollidable {
         if(id<3)
         {
             UpdateRabit();
+        }
+        else if(id>=3 && id < 6)
+        {
+            UpdateBat();
         }
         fixDstRect();
     }
@@ -206,6 +218,133 @@ public class Enemy extends AnimSprite implements IBoxCollidable {
                     dy = 6 - y;
                 }
                 y += dy;
+            }
+            else if(state== State.dead)
+            {
+                y+=0.04;
+                if(y>9)
+                {
+                    MainScene scene = (MainScene) BaseScene.getTopScene();
+                    scene.remove(MainScene.Layer.enemy,this);
+                }
+            }
+        }
+
+        if(x < 2.5)
+        {
+            x+=moveSpeed;
+            moveDir = 1;
+        }
+        else if(x>24.5)
+        {
+            x-=moveSpeed;
+            moveDir = -1;
+        }
+    }
+
+    private void DrawBat(Canvas canvas, float time)
+    {
+        Rect[] rects = null;
+        if(state==State.spawn)
+        {
+            rects = srcRects[1];
+        }
+        else if(state==State.common)
+        {
+            rects = srcRects[0];
+        }
+        else if(state==State.dead)
+        {
+            rects = srcRects[2];
+        }
+        int frameIndex = 0;
+        if(rects!=null)
+        {
+            frameIndex = Math.round(time * fps) % rects.length;
+        }
+        canvas.drawBitmap(bitmap, rects[frameIndex], dstRect, null);
+    }
+
+    private void UpdateBat()
+    {
+        if(id==3)
+        {
+            if(state==State.spawn)
+            {
+                y+=0.01;
+                if(y>3.5)
+                {
+                    state=State.common;
+                }
+            }
+            else if(state== State.dead)
+            {
+                y+=0.04;
+                if(y>9)
+                {
+                    MainScene scene = (MainScene) BaseScene.getTopScene();
+                    scene.remove(MainScene.Layer.enemy,this);
+                }
+            }
+        }
+        if(id==4)
+        {
+            if(state==State.spawn)
+            {
+                y+=0.01;
+                if(y>3.5)
+                {
+                    state=State.common;
+                }
+            }
+            else if(state== State.common)
+            {
+                if(MainScene.player.GetX()>x)
+                {
+                    moveDir = 1;
+                }
+                else
+                {
+                    moveDir = -1;
+                }
+                x+= moveDir * moveSpeed;
+            }
+            else if(state== State.dead)
+            {
+                y+=0.04;
+                if(y>9)
+                {
+                    MainScene scene = (MainScene) BaseScene.getTopScene();
+                    scene.remove(MainScene.Layer.enemy,this);
+                }
+            }
+        }
+        if(id==5)
+        {
+            if(state==State.spawn)
+            {
+                y+=0.01;
+                if(y>3.5)
+                {
+                    state=State.common;
+                    if(r.nextInt(10)<5)
+                    {
+                        moveDir = -1;
+                    }
+                    else
+                    {
+                        moveDir = 1;
+                    }
+                }
+            }
+            else if(state== State.common)
+            {
+                x+= moveDir * moveSpeed;
+                y+= moveDirY * moveSpeed;
+                if(y>6 || y<3.5f)
+                {
+                    moveDirY *=-1;
+                }
             }
             else if(state== State.dead)
             {

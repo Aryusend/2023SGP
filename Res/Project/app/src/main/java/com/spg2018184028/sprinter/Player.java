@@ -131,7 +131,7 @@ public class Player extends AnimSprite implements IBoxCollidable {
         if(eTime>20)
         {
             eTime = 0;
-            if(stageLevel<3)
+            if(stageLevel<6)
             {
                 stageLevel++;
             }
