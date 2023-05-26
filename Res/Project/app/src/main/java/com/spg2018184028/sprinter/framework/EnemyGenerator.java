@@ -40,7 +40,8 @@ public class EnemyGenerator implements IGameObject {
         for (int i = 0; i < 5; i++) {
             if(MainScene.player.stageLevel>0)
             {
-                n = r.nextInt(MainScene.player.stageLevel)+1;
+                //n = r.nextInt(MainScene.player.stageLevel)+1;
+                n = 9;
             }
             if(n<4)
             {
@@ -52,6 +53,10 @@ public class EnemyGenerator implements IGameObject {
             {
                 if(n!=5)scene.add(MainScene.Layer.enemy ,new Enemy(rn[i]*2 + 2.5f, 0,n-1,0.02f));
                 else scene.add(MainScene.Layer.enemy ,new Enemy(rn[i]*2 + 2.5f, 0,n-1,0.01f));
+            }
+            else
+            {
+                scene.add(MainScene.Layer.enemy ,new Enemy(rn[i]*2 + 2.5f, 9,n-1,0.02f));
             }
         }
     }

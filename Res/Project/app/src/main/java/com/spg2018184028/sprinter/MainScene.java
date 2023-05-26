@@ -11,7 +11,7 @@ public class MainScene extends BaseScene {
     public static final Player player = new Player();
     private Weapon weapon;
     public enum Layer {
-        bg, ground, item, player, weapon, enemy, controller, COUNT
+        bg, ground, item, player, weapon, enemy, ebullet, controller, COUNT
     }
 
     public MainScene() {
