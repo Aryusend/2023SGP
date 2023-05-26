@@ -37,7 +37,7 @@ public class EnemyGenerator implements IGameObject {
             }
         }
         for (int i = 0; i < 5; i++) {
-            scene.add(MainScene.Layer.enemy ,new Enemy(rn[i]*2 + 2.5f, 9,0,0.02f));
+            scene.add(MainScene.Layer.enemy ,new Enemy(rn[i]*2 + 2.5f, 9,2,0.02f));
         }
     }
 

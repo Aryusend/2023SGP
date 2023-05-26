@@ -11,9 +11,7 @@ import com.spg2018184028.sprinter.R;
 public class Item extends Sprite implements IBoxCollidable {
     static int resIds = R.mipmap.items;
     public int itemId;
-
     private float fallSpeed = 0;
-
     protected enum State{
         spawn, interactive;
     }

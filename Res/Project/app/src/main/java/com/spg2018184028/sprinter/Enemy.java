@@ -14,13 +14,18 @@ import com.spg2018184028.sprinter.framework.Sprite;
 public class Enemy extends AnimSprite implements IBoxCollidable {
     float lifeTime = 0;
     static int[] enemy_ResIds = {
-            R.mipmap.e1
+            R.mipmap.e1,
+            R.mipmap.e2,
+            R.mipmap.e3
     };
     static private Random r = new Random();
     private int id;
     private float moveSpeed;
     private int moveDir=0;
 
+    private float fallSpeed = 0;
+    private float jumpCoolTime = 0;
+    private float jumpTime = 0;
     public enum State{
         spawn, common, dead
     }
@@ -31,6 +36,7 @@ public class Enemy extends AnimSprite implements IBoxCollidable {
         moveSpeed = _speed;
     }
     protected static Rect[][] srcRects = {
+            //Rabbit
             new Rect[] {
                     new Rect(0, 0, 16, 16),
                     new Rect(16 + 1, 0, 32 + 1, 16),
@@ -46,6 +52,28 @@ public class Enemy extends AnimSprite implements IBoxCollidable {
     public void draw(Canvas canvas) {
         long now = System.currentTimeMillis();
         float time = (now - createdOn) / 1000.0f;
+        if(id<3)
+        {
+            DrawRabbit(canvas, time);
+        }
+    }
+    @Override
+    public void update() {
+        lifeTime+= BaseScene.frameTime;
+        if(id<3)
+        {
+            UpdateRabit();
+        }
+        fixDstRect();
+    }
+
+    @Override
+    public RectF getCollisionRect() {
+        return dstRect;
+    }
+
+    private void DrawRabbit(Canvas canvas, float time)
+    {
         Rect[] rects = null;
         if(state==State.spawn)
         {
@@ -66,9 +94,9 @@ public class Enemy extends AnimSprite implements IBoxCollidable {
         }
         canvas.drawBitmap(bitmap, rects[frameIndex], dstRect, null);
     }
-    @Override
-    public void update() {
-        lifeTime+= BaseScene.frameTime;
+
+    private void UpdateRabit()
+    {
         if(id==0)
         {
             if(state==State.spawn)
@@ -107,6 +135,88 @@ public class Enemy extends AnimSprite implements IBoxCollidable {
                 }
             }
         }
+        else if(id==1)
+        {
+            if(state==State.spawn)
+            {
+                y-=0.01;
+                if(y<6)
+                {
+                    state=State.common;
+
+                    if(r.nextInt(10)<5)
+                    {
+                        moveDir = -1;
+                    }
+                    else
+                    {
+                        moveDir = 1;
+                    }
+                }
+            }
+            else if(state== State.common)
+            {
+                x += moveDir * moveSpeed;
+            }
+            else if(state== State.dead)
+            {
+                y+=0.04;
+                if(y>9)
+                {
+                    MainScene scene = (MainScene) BaseScene.getTopScene();
+                    scene.remove(MainScene.Layer.enemy,this);
+                }
+            }
+        }
+        else if(id==2)
+        {
+            if(state==State.spawn)
+            {
+                y-=0.01;
+                if(y<6)
+                {
+                    state=State.common;
+
+                    if(r.nextInt(10)<5)
+                    {
+                        moveDir = -1;
+                    }
+                    else
+                    {
+                        moveDir = 1;
+                    }
+                    jumpCoolTime = r.nextInt(5)+1;
+                }
+            }
+            else if(state== State.common)
+            {
+                x += moveDir * moveSpeed;
+
+                jumpTime+=BaseScene.frameTime;
+                if(jumpTime>jumpCoolTime)
+                {
+                    fallSpeed = -10;
+                    jumpTime = 0;
+                    jumpCoolTime = r.nextInt(5)+1;
+                }
+
+                float dy = fallSpeed * BaseScene.frameTime;
+                fallSpeed += 18 * BaseScene.frameTime;
+                if (y + dy >= 6) {
+                    dy = 6 - y;
+                }
+                y += dy;
+            }
+            else if(state== State.dead)
+            {
+                y+=0.04;
+                if(y>9)
+                {
+                    MainScene scene = (MainScene) BaseScene.getTopScene();
+                    scene.remove(MainScene.Layer.enemy,this);
+                }
+            }
+        }
 
         if(x < 2.5)
         {
@@ -118,11 +228,5 @@ public class Enemy extends AnimSprite implements IBoxCollidable {
             x-=moveSpeed;
             moveDir = -1;
         }
-        fixDstRect();
-    }
-
-    @Override
-    public RectF getCollisionRect() {
-        return dstRect;
     }
 }
