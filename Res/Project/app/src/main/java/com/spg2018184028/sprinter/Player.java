@@ -22,6 +22,7 @@ public class Player extends AnimSprite implements IBoxCollidable {
     private float moveSpeed = 0.04f;
     private int moveDir = 0;
 
+    public int stageLevel = 0;
     private Gauge hpGauge = new Gauge(0.1f, R.color.red,R.color.gray_600);
     public float maxHp = 20;
     public float curHp = 0;
@@ -127,9 +128,13 @@ public class Player extends AnimSprite implements IBoxCollidable {
     @Override
     public void update() {
         eTime += BaseScene.frameTime;
-        if(eTime>120)
+        if(eTime>20)
         {
             eTime = 0;
+            if(stageLevel<3)
+            {
+                stageLevel++;
+            }
         }
         if (state == State.jump) {
             float dy = jumpSpeed * BaseScene.frameTime;
