@@ -58,6 +58,14 @@ public class Player extends AnimSprite implements IBoxCollidable {
             new Rect[] {
                     new Rect(0, 16+1, 16, 32+1),
                     new Rect(16, 16+1, 32, 32+1),
+            },
+            new Rect[]{
+                    new Rect(0, 32+1, 16, 48+1),
+                    new Rect(16, 32+1, 32, 48+1),
+            },
+            new Rect[]{
+                    new Rect(0, 48+2, 16, 64+2),
+                    new Rect(16, 48+2, 32, 64+2),
             }
     };
     @Override
@@ -67,11 +75,27 @@ public class Player extends AnimSprite implements IBoxCollidable {
         Rect[] rects;
         if(moveDir==-1)
         {
-            rects = srcRects[1];
+            if(!isDamaged)
+            {
+                rects = srcRects[1];
+            }
+            else
+            {
+                rects = srcRects[3];
+            }
+
         }
         else
         {
-            rects = srcRects[0];
+            if(!isDamaged)
+            {
+                rects = srcRects[0];
+            }
+            else
+            {
+                rects = srcRects[2];
+            }
+
         }
         int frameIndex = Math.round(time * fps) % rects.length;
         if(moveDir!=0)
