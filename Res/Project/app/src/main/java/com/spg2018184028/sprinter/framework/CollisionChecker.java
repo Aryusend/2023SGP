@@ -107,7 +107,7 @@ public class CollisionChecker implements IGameObject {
             Boss bossObj = (Boss) o1;
             if (CollisionHelper.collides(bossObj, MainScene.player))
             {
-                if(bossObj.state== Boss.State.common && !MainScene.player.isDamaged)
+                if(bossObj.state== Boss.State.common && !MainScene.player.isDamaged && !bossObj.isDamaged)
                 {
                     MainScene.player.curHp--;
                     MainScene.player.isDamaged = true;
