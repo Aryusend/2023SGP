@@ -43,7 +43,6 @@ public class Enemy extends AnimSprite implements IBoxCollidable {
         moveSpeed = _speed;
     }
     protected static Rect[][] srcRects = {
-            //Rabbit
             new Rect[] {
                     new Rect(0, 0, 16, 16),
                     new Rect(16 + 1, 0, 32 + 1, 16),
