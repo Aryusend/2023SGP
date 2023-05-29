@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import com.spg2018184028.sprinter.Enemy;
+import com.spg2018184028.sprinter.EnemyBullet;
 import com.spg2018184028.sprinter.MainScene;
 import com.spg2018184028.sprinter.Player;
 import com.spg2018184028.sprinter.Weapon;
@@ -26,6 +27,7 @@ public class CollisionChecker implements IGameObject {
         MainScene scene = (MainScene) BaseScene.getTopScene();
         ArrayList<IGameObject> items = scene.getObjectsAt(MainScene.Layer.item);
         ArrayList<IGameObject> enemies = scene.getObjectsAt(MainScene.Layer.enemy);
+        ArrayList<IGameObject> enemyBullets = scene.getObjectsAt(MainScene.Layer.ebullet);
         for (IGameObject o1 : enemies) {
             if (!(o1 instanceof Enemy)) {
                 continue;
@@ -78,6 +80,21 @@ public class CollisionChecker implements IGameObject {
                         }
                     }
                     scene.remove(MainScene.Layer.item, gobj);
+                }
+            }
+        }
+        for (int i = enemyBullets.size() - 1; i >= 0; i--) {
+            IGameObject gobj = enemyBullets.get(i);
+            if (!(gobj instanceof IBoxCollidable)) {
+                continue;
+            }
+            if (CollisionHelper.collides(MainScene.player, (IBoxCollidable) gobj)) {
+                EnemyBullet eBullet = (EnemyBullet) gobj;
+                if(!MainScene.player.isDamaged)
+                {
+                    MainScene.player.curHp--;
+                    MainScene.player.isDamaged = true;
+                    scene.remove(MainScene.Layer.ebullet, gobj);
                 }
             }
         }
