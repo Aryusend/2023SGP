@@ -32,7 +32,7 @@ public class Enemy extends AnimSprite implements IBoxCollidable {
 
     private float fallSpeed = 0;
     private float jumpCoolTime = 0;
-    private float jumpTime = 0;
+    private float coolTime = 0;
     public enum State{
         spawn, common, dead
     }
@@ -219,11 +219,11 @@ public class Enemy extends AnimSprite implements IBoxCollidable {
             {
                 x += moveDir * moveSpeed;
 
-                jumpTime+=BaseScene.frameTime;
-                if(jumpTime>jumpCoolTime)
+                coolTime+=BaseScene.frameTime;
+                if(coolTime>jumpCoolTime)
                 {
                     fallSpeed = -10;
-                    jumpTime = 0;
+                    coolTime = 0;
                     jumpCoolTime = r.nextInt(5)+1;
                 }
 
@@ -438,11 +438,25 @@ public class Enemy extends AnimSprite implements IBoxCollidable {
                 if(y<6)
                 {
                     state=State.common;
+                    if(MainScene.player.GetX() > x)
+                    {
+                        moveDir = 1;
+                    }
+                    else
+                    {
+                        moveDir = -1;
+                    }
                 }
             }
             else if(state==State.common)
             {
-                //공격
+                coolTime += BaseScene.frameTime;
+                if(coolTime >= 3)
+                {
+                    coolTime = 0;
+                    MainScene scene = (MainScene) BaseScene.getTopScene();
+                    scene.add(MainScene.Layer.ebullet,new EnemyBullet(x,y,0, moveDir, 0.06f));
+                }
             }
             else if(state== State.dead)
             {
@@ -487,7 +501,13 @@ public class Enemy extends AnimSprite implements IBoxCollidable {
                     moveDir = -1;
                 }
 
-                //공격
+                coolTime += BaseScene.frameTime;
+                if(coolTime >= 3)
+                {
+                    coolTime = 0;
+                    MainScene scene = (MainScene) BaseScene.getTopScene();
+                    scene.add(MainScene.Layer.ebullet,new EnemyBullet(x,y,1, moveDir, 0.06f));
+                }
 
             }
             else if(state== State.dead)
@@ -524,8 +544,14 @@ public class Enemy extends AnimSprite implements IBoxCollidable {
                 {
                     x+=moveDir * moveSpeed;
                 }
-                
-                //공격
+
+                coolTime += BaseScene.frameTime;
+                if(coolTime >= 3)
+                {
+                    coolTime = 0;
+                    MainScene scene = (MainScene) BaseScene.getTopScene();
+                    scene.add(MainScene.Layer.ebullet,new EnemyBullet(x,y,2, -moveDir, 0.06f));
+                }
 
             }
             else if(state== State.dead)
