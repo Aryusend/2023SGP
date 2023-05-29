@@ -10,6 +10,8 @@ import com.spg2018184028.sprinter.framework.Metrics;
 public class MainScene extends BaseScene {
     public static final Player player = new Player();
     private Weapon weapon;
+
+    public static Boolean isBossStage = false;
     public enum Layer {
         bg, ground, item, player, weapon, enemy, ebullet, controller, COUNT
     }

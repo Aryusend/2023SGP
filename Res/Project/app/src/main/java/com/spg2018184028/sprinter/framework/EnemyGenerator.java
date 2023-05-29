@@ -2,9 +2,11 @@ package com.spg2018184028.sprinter.framework;
 
 import android.graphics.Canvas;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 import com.spg2018184028.sprinter.Enemy;
+import com.spg2018184028.sprinter.EnemyBullet;
 import com.spg2018184028.sprinter.MainScene;
 import com.spg2018184028.sprinter.framework.BaseScene;
 import com.spg2018184028.sprinter.framework.IGameObject;
@@ -15,9 +17,16 @@ public class EnemyGenerator implements IGameObject {
     @Override
     public void update() {
         time += BaseScene.frameTime;
-        if (time > GEN_INTERVAL) {
-            generate();
-            time -= GEN_INTERVAL;
+        if(!MainScene.isBossStage)
+        {
+            if (time > GEN_INTERVAL) {
+                generate();
+                time -= GEN_INTERVAL;
+            }
+        }
+        else
+        {
+            bossStage();
         }
     }
 
@@ -40,8 +49,7 @@ public class EnemyGenerator implements IGameObject {
         for (int i = 0; i < 5; i++) {
             if(MainScene.player.stageLevel>0)
             {
-                //n = r.nextInt(MainScene.player.stageLevel)+1;
-                n = 9;
+                n = r.nextInt(MainScene.player.stageLevel)+1;
             }
             if(n<4)
             {
@@ -59,6 +67,24 @@ public class EnemyGenerator implements IGameObject {
                 scene.add(MainScene.Layer.enemy ,new Enemy(rn[i]*2 + 2.5f, 9,n-1,0.02f));
             }
         }
+    }
+    private void bossStage()
+    {
+        BaseScene scene = BaseScene.getTopScene();
+        ArrayList<IGameObject> enemies = scene.getObjectsAt(MainScene.Layer.enemy);
+        ArrayList<IGameObject> enemyBullets = scene.getObjectsAt(MainScene.Layer.ebullet);
+        for (IGameObject o1 : enemies) {
+            if (!(o1 instanceof Enemy)) {
+                continue;
+            }
+            Enemy enemy = (Enemy) o1;
+            enemy.state = Enemy.State.dead;
+        }
+        for (int i = enemyBullets.size() - 1; i >= 0; i--) {
+            IGameObject gobj = enemyBullets.get(i);
+            scene.remove(MainScene.Layer.ebullet, gobj);
+        }
+
     }
 
     @Override
