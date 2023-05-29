@@ -5,6 +5,7 @@ import android.graphics.Canvas;
 import java.util.ArrayList;
 import java.util.Random;
 
+import com.spg2018184028.sprinter.Boss;
 import com.spg2018184028.sprinter.Enemy;
 import com.spg2018184028.sprinter.EnemyBullet;
 import com.spg2018184028.sprinter.MainScene;
@@ -28,6 +29,7 @@ public class CollisionChecker implements IGameObject {
         ArrayList<IGameObject> items = scene.getObjectsAt(MainScene.Layer.item);
         ArrayList<IGameObject> enemies = scene.getObjectsAt(MainScene.Layer.enemy);
         ArrayList<IGameObject> enemyBullets = scene.getObjectsAt(MainScene.Layer.ebullet);
+        ArrayList<IGameObject> boss = scene.getObjectsAt(MainScene.Layer.boss);
         for (IGameObject o1 : enemies) {
             if (!(o1 instanceof Enemy)) {
                 continue;
@@ -95,6 +97,28 @@ public class CollisionChecker implements IGameObject {
                     MainScene.player.curHp--;
                     MainScene.player.isDamaged = true;
                     scene.remove(MainScene.Layer.ebullet, gobj);
+                }
+            }
+        }
+        for (IGameObject o1 : boss) {
+            if (!(o1 instanceof Boss)) {
+                continue;
+            }
+            Boss bossObj = (Boss) o1;
+            if (CollisionHelper.collides(bossObj, MainScene.player))
+            {
+                if(bossObj.state== Boss.State.common && !MainScene.player.isDamaged)
+                {
+                    MainScene.player.curHp--;
+                    MainScene.player.isDamaged = true;
+                }
+            }
+            if(CollisionHelper.collides(bossObj, weapon))
+            {
+                if(bossObj.state== Boss.State.common && !bossObj.isDamaged)
+                {
+                    bossObj.hp--;
+                    bossObj.isDamaged = true;
                 }
             }
         }

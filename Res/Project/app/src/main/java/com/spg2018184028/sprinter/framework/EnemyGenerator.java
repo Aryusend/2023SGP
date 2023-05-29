@@ -5,6 +5,7 @@ import android.graphics.Canvas;
 import java.util.ArrayList;
 import java.util.Random;
 
+import com.spg2018184028.sprinter.Boss;
 import com.spg2018184028.sprinter.Enemy;
 import com.spg2018184028.sprinter.EnemyBullet;
 import com.spg2018184028.sprinter.MainScene;
@@ -14,11 +15,13 @@ import com.spg2018184028.sprinter.framework.IGameObject;
 public class EnemyGenerator implements IGameObject {
     private static final float GEN_INTERVAL = 5.0f;
     private float time;
+
+    private Boolean isBossSpawn = false;
     @Override
     public void update() {
-        time += BaseScene.frameTime;
         if(!MainScene.isBossStage)
         {
+            time += BaseScene.frameTime;
             if (time > GEN_INTERVAL) {
                 generate();
                 time -= GEN_INTERVAL;
@@ -26,7 +29,10 @@ public class EnemyGenerator implements IGameObject {
         }
         else
         {
-            bossStage();
+            if(!isBossSpawn)
+            {
+                bossStage();
+            }
         }
     }
 
@@ -83,6 +89,11 @@ public class EnemyGenerator implements IGameObject {
         for (int i = enemyBullets.size() - 1; i >= 0; i--) {
             IGameObject gobj = enemyBullets.get(i);
             scene.remove(MainScene.Layer.ebullet, gobj);
+        }
+        if(!isBossSpawn)
+        {
+            scene.add(MainScene.Layer.boss ,new Boss(13.5f, 9,0,0.02f,3));
+            isBossSpawn = true;
         }
 
     }

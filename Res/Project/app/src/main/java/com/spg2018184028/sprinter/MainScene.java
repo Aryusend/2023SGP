@@ -13,7 +13,7 @@ public class MainScene extends BaseScene {
 
     public static Boolean isBossStage = false;
     public enum Layer {
-        bg, ground, item, player, weapon, enemy, ebullet, controller, COUNT
+        bg, ground, item, player, weapon, enemy, ebullet, boss, controller, COUNT
     }
 
     public MainScene() {

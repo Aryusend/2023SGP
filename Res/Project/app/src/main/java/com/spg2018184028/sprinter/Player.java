@@ -22,6 +22,8 @@ public class Player extends AnimSprite implements IBoxCollidable {
     private float moveSpeed = 0.04f;
     private int moveDir = 0;
     public int stageLevel = 0;
+
+    private int stageTime = 5;
     private Gauge hpGauge = new Gauge(0.1f, R.color.red,R.color.gray_600);
     public float maxHp = 20;
     public float curHp = 0;
@@ -122,7 +124,7 @@ public class Player extends AnimSprite implements IBoxCollidable {
         if(!MainScene.isBossStage)
         {
             canvas.save();
-            canvas.drawText("다음 적 등장까지" + (40 - (int)eTime)+"초", 1.0f, 1.6f, timePaint);
+            canvas.drawText("다음 적 등장까지" + (stageTime - (int)eTime)+"초", 1.0f, 1.6f, timePaint);
             canvas.restore();
         }
     }
@@ -133,7 +135,7 @@ public class Player extends AnimSprite implements IBoxCollidable {
         {
             eTime += BaseScene.frameTime;
         }
-        if(eTime>40)
+        if(eTime>stageTime)
         {
             eTime = 0;
             if(stageLevel<10)

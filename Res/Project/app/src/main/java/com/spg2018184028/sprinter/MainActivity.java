@@ -47,7 +47,6 @@ public class MainActivity extends AppCompatActivity {
 
     public void onClickPauseButton(View view) {
         Log.d(TAG, "pause button clicked!!");
-        MainScene.isBossStage = false;
     }
 
     protected void onPause() {
