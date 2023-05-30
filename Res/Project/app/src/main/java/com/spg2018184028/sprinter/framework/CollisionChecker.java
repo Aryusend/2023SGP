@@ -81,6 +81,15 @@ public class CollisionChecker implements IGameObject {
                             MainScene.player.curHp++;
                         }
                     }
+                    if(item.itemId==2)
+                    {
+                        scene.add(MainScene.Layer.item,new Item(item.x, item.y,3));
+                        item.state= Item.State.obtained;
+                    }
+                    if(item.itemId==3)
+                    {
+                        MainScene.isBossStage = false;
+                    }
                     scene.remove(MainScene.Layer.item, gobj);
                 }
             }

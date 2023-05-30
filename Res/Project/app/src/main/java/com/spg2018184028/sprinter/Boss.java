@@ -10,6 +10,7 @@ import com.spg2018184028.sprinter.framework.AnimSprite;
 import com.spg2018184028.sprinter.framework.BaseScene;
 import com.spg2018184028.sprinter.framework.Gauge;
 import com.spg2018184028.sprinter.framework.IBoxCollidable;
+import com.spg2018184028.sprinter.framework.Item;
 
 import java.util.Random;
 
@@ -44,6 +45,7 @@ public class Boss extends AnimSprite implements IBoxCollidable {
     }
 
     public State state = State.spawn;
+    protected Paint paint;
 
     public Boss(float x, float y, int _id, float _speed, float _scale, int dir) {
         super(boss_ResIds[_id], x, y, 2.0f * _scale, 2.0f * _scale, 8, 2);
@@ -71,6 +73,10 @@ public class Boss extends AnimSprite implements IBoxCollidable {
             boundaryR = 24.5f;
             ground = 6;
         }
+
+        paint = new Paint();
+        paint.setColor(Color.BLACK);
+        paint.setTextSize(2f);
     }
     protected static Rect[][] srcRects = {
             new Rect[] {
@@ -115,6 +121,12 @@ public class Boss extends AnimSprite implements IBoxCollidable {
             canvas.drawBitmap(bitmap, rects[1], dstRect, null);
         }
 
+        if(state==State.spawn && scale==3)
+        {
+            canvas.save();
+            canvas.drawText("보스 등장", 10.5f, 5.5f, paint);
+            canvas.restore();
+        }
 
         if(state==State.common)
         {
@@ -136,6 +148,7 @@ public class Boss extends AnimSprite implements IBoxCollidable {
             hpGauge.draw(canvas, hp / (scale + 1));
             canvas.restore();
         }
+
     }
 
     @Override
@@ -249,7 +262,9 @@ public class Boss extends AnimSprite implements IBoxCollidable {
         }
         if(MainScene.bossNum==0)
         {
-            MainScene.isBossStage = false;
+            //MainScene.isBossStage = false;
+            MainScene scene = (MainScene) BaseScene.getTopScene();
+            scene.add(MainScene.Layer.item,new Item(13.5f,0,2));
         }
     }
 }

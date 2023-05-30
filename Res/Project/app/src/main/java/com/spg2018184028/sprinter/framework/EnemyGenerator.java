@@ -26,6 +26,7 @@ public class EnemyGenerator implements IGameObject {
                 generate();
                 time -= GEN_INTERVAL;
             }
+            isBossSpawn = false;
         }
         else
         {
@@ -92,7 +93,19 @@ public class EnemyGenerator implements IGameObject {
         }
         if(!isBossSpawn)
         {
-            scene.add(MainScene.Layer.boss ,new Boss(13.5f, 9,0,0.02f,3, -1));
+            if(MainScene.player.stageLevel==4)
+            {
+                scene.add(MainScene.Layer.boss ,new Boss(13.5f, 9,0,0.02f,3, -1));
+            }
+            else if(MainScene.player.stageLevel==7)
+            {
+                scene.add(MainScene.Layer.boss ,new Boss(13.5f, 9,0,0.02f,3, -1));
+            }
+            else if(MainScene.player.stageLevel==10)
+            {
+                scene.add(MainScene.Layer.boss ,new Boss(13.5f, 9,0,0.02f,3, -1));
+            }
+
             MainScene.bossNum++;
             isBossSpawn = true;
         }
