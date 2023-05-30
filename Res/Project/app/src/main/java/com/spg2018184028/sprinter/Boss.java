@@ -212,6 +212,43 @@ public class Boss extends AnimSprite implements IBoxCollidable {
 
         if(hp==0)
         {
+            BaseScene scene = BaseScene.getTopScene();
+            if(scale==3)
+            {
+                scene.add(MainScene.Layer.boss ,new Boss(x, y,0,0.04f,2, -1));
+                MainScene.bossNum++;
+                scene.add(MainScene.Layer.boss ,new Boss(x, y,0,0.04f,2, 1));
+                MainScene.bossNum++;
+                scene.remove(MainScene.Layer.boss, this);
+                MainScene.bossNum--;
+            }
+            else if(scale==2)
+            {
+                scene.add(MainScene.Layer.boss ,new Boss(x, y,0,0.06f,1, -1));
+                MainScene.bossNum++;
+                scene.add(MainScene.Layer.boss ,new Boss(x, y,0,0.06f,1, 1));
+                MainScene.bossNum++;
+                scene.remove(MainScene.Layer.boss, this);
+                MainScene.bossNum--;
+            }
+            else if(scale==1)
+            {
+                state=State.dead;
+            }
+        }
+
+        if(state == State.dead)
+        {
+            y+=0.04;
+            if(y>9)
+            {
+                MainScene scene = (MainScene) BaseScene.getTopScene();
+                scene.remove(MainScene.Layer.boss,this);
+                MainScene.bossNum--;
+            }
+        }
+        if(MainScene.bossNum==0)
+        {
             MainScene.isBossStage = false;
         }
     }
