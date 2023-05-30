@@ -318,7 +318,32 @@ public class Boss extends AnimSprite implements IBoxCollidable {
 
                 if (chargeTime>2)
                 {
+                    MainScene scene = (MainScene) BaseScene.getTopScene();
                     x=r.nextInt(20)+3.5f;
+                    if(MainScene.player.GetX()>x)
+                    {
+                        moveDir = 1;
+                    }
+                    else
+                    {
+                        moveDir = -1;
+                    }
+                    int a = r.nextInt(3);
+                    if(a==0)
+                    {
+                        scene.add(MainScene.Layer.ebullet,new EnemyBullet(x,y-2,a, moveDir, 0.02f, 1.5f));
+                    }
+                    else if(a==1)
+                    {
+                        scene.add(MainScene.Layer.ebullet,new EnemyBullet(x,y,a, moveDir, 0.02f, 1.5f));
+                    }
+                    else if(a==2)
+                    {
+                        scene.add(MainScene.Layer.ebullet,new EnemyBullet(x,y+2,a, moveDir, 0.02f, 1.5f));
+                    }
+
+
+
                     coolTime = 0;
                     jumpCoolTime = r.nextInt(5)+3;
 

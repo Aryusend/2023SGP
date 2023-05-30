@@ -454,7 +454,7 @@ public class Enemy extends AnimSprite implements IBoxCollidable {
                 {
                     coolTime = 0;
                     MainScene scene = (MainScene) BaseScene.getTopScene();
-                    scene.add(MainScene.Layer.ebullet,new EnemyBullet(x,y,0, moveDir, 0.06f));
+                    scene.add(MainScene.Layer.ebullet,new EnemyBullet(x,y,0, moveDir, 0.06f,1.5f));
                 }
             }
             else if(state== State.dead)
@@ -505,7 +505,7 @@ public class Enemy extends AnimSprite implements IBoxCollidable {
                 {
                     coolTime = 0;
                     MainScene scene = (MainScene) BaseScene.getTopScene();
-                    scene.add(MainScene.Layer.ebullet,new EnemyBullet(x,y,1, moveDir, 0.06f));
+                    scene.add(MainScene.Layer.ebullet,new EnemyBullet(x,y,1, moveDir, 0.06f,1.5f));
                 }
 
             }
@@ -549,7 +549,7 @@ public class Enemy extends AnimSprite implements IBoxCollidable {
                 {
                     coolTime = 0;
                     MainScene scene = (MainScene) BaseScene.getTopScene();
-                    scene.add(MainScene.Layer.ebullet,new EnemyBullet(x,y,2, -moveDir, 0.06f));
+                    scene.add(MainScene.Layer.ebullet,new EnemyBullet(x,y,2, -moveDir, 0.06f,1.5f));
                 }
 
             }

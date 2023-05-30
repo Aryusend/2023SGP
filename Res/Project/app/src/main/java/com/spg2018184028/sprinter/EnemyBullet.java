@@ -16,11 +16,13 @@ public class EnemyBullet extends Sprite implements IBoxCollidable {
     private int moveDir;
 
     private float moveSpeed;
-    public EnemyBullet(float x, float y,int id, int dir, float speed) {
-        super(resIds, x, y, 1.0f, 1.0f);
+    private float bulletScale = 1;
+    public EnemyBullet(float x, float y,int id, int dir, float speed, float scale) {
+        super(resIds, x, y, 1.0f * scale, 1.0f * scale);
         bulletId = id;
         moveDir = dir;
         moveSpeed = speed;
+        bulletScale = scale;
     }
 
     protected static Rect[] srcRects = {
