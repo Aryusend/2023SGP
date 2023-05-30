@@ -18,6 +18,7 @@ public class Boss extends AnimSprite implements IBoxCollidable {
 
     static int[] boss_ResIds = {
             R.mipmap.b1,
+            R.mipmap.b2,
     };
     static private Random r = new Random();
     private int id;
@@ -52,7 +53,18 @@ public class Boss extends AnimSprite implements IBoxCollidable {
         id = _id;
         moveSpeed = _speed;
         scale = _scale;
-        hp = _scale + 1;
+        if(id==0)
+        {
+            hp = _scale + 1;
+        }
+        else if(id==1)
+        {
+            hp = 6;
+        }
+        else if(id==2)
+        {
+            hp = 8;
+        }
         moveDir = dir;
 
         if(_scale==3)
@@ -128,32 +140,50 @@ public class Boss extends AnimSprite implements IBoxCollidable {
             canvas.restore();
         }
 
-        if(state==State.common)
+        if(id==0)
         {
-            canvas.save();
-            if(scale==3) {
-                canvas.translate(x - 3f, y + 3.5f);
-                canvas.scale(6.0f, 6.0f);
-            }
-            if(scale==2)
+            if(state==State.common)
             {
+                canvas.save();
+                if(scale==3) {
+                    canvas.translate(x - 3f, y + 3.5f);
+                    canvas.scale(6.0f, 6.0f);
+                }
+                if(scale==2)
+                {
+                    canvas.translate(x - 2.5f, y + 2.5f);
+                    canvas.scale(5.0f, 6.0f);
+                }
+                if(scale==1)
+                {
+                    canvas.translate(x - 2f, y + 1.5f);
+                    canvas.scale(4.0f, 6.0f);
+                }
+                hpGauge.draw(canvas, hp / (scale + 1));
+                canvas.restore();
+            }
+        }
+        else if(id==1)
+        {
+            if(state==State.common)
+            {
+                canvas.save();
                 canvas.translate(x - 2.5f, y + 2.5f);
                 canvas.scale(5.0f, 6.0f);
+                hpGauge.draw(canvas, hp / 6);
+                canvas.restore();
             }
-            if(scale==1)
-            {
-                canvas.translate(x - 2f, y + 1.5f);
-                canvas.scale(4.0f, 6.0f);
-            }
-            hpGauge.draw(canvas, hp / (scale + 1));
-            canvas.restore();
         }
+        else if(id==2)
+        {
 
+        }
     }
 
     @Override
     public void update() {
         if(id==0)UpdateSlime();
+        else if(id==1)UpdateDevil();
         fixDstRect();
     }
     @Override
@@ -266,5 +296,64 @@ public class Boss extends AnimSprite implements IBoxCollidable {
             MainScene scene = (MainScene) BaseScene.getTopScene();
             scene.add(MainScene.Layer.item,new Item(13.5f,0,2));
         }
+    }
+
+    void UpdateDevil()
+    {
+        if(state==State.spawn)
+        {
+            y+=0.01;
+            if(y > ground)
+            {
+                state= Boss.State.common;
+            }
+        }
+        if(state==State.common)
+        {
+            coolTime+=BaseScene.frameTime;
+            if(coolTime>jumpCoolTime)
+            {
+                isCharging = true;
+                chargeTime+=BaseScene.frameTime;
+
+                if (chargeTime>2)
+                {
+                    x=r.nextInt(20)+3.5f;
+                    coolTime = 0;
+                    jumpCoolTime = r.nextInt(5)+3;
+
+                    chargeTime = 0;
+                    isCharging = false;
+                }
+            }
+            if(hp==0)
+            {
+                BaseScene scene = BaseScene.getTopScene();
+                scene.add(MainScene.Layer.item,new Item(13.5f,0,2));
+                state=State.dead;
+            }
+        }
+
+        if(isDamaged)
+        {
+            damagedTime+=BaseScene.frameTime;
+            if (damagedTime > 3)
+            {
+                damagedTime = 0;
+                isDamaged = false;
+            }
+        }
+
+        if(state == State.dead)
+        {
+            y+=0.04;
+            if(y>9)
+            {
+                MainScene scene = (MainScene) BaseScene.getTopScene();
+                scene.remove(MainScene.Layer.boss,this);
+                MainScene.bossNum--;
+            }
+        }
+
     }
 }

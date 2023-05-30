@@ -99,7 +99,7 @@ public class EnemyGenerator implements IGameObject {
             }
             else if(MainScene.player.stageLevel==7)
             {
-                scene.add(MainScene.Layer.boss ,new Boss(13.5f, 9,0,0.02f,3, -1));
+                scene.add(MainScene.Layer.boss ,new Boss(13.5f, 0,1,0.02f,2, -1));
             }
             else if(MainScene.player.stageLevel==10)
             {
