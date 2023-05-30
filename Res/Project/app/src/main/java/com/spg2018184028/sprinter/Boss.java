@@ -31,18 +31,27 @@ public class Boss extends AnimSprite implements IBoxCollidable {
     private Gauge hpGauge = new Gauge(0.1f, R.color.red,R.color.gray_600);
     public float hp;
 
+    private int moveDirY = 1;
+    private float fallSpeed = 0;
+    private float jumpCoolTime = 0;
+    private float coolTime = 0;
+
+    private float chargeTime = 0;
+    private Boolean isCharging = false;
+
     public enum State{
         spawn, common, dead
     }
 
     public State state = State.spawn;
 
-    public Boss(float x, float y, int _id, float _speed, float _scale) {
+    public Boss(float x, float y, int _id, float _speed, float _scale, int dir) {
         super(boss_ResIds[_id], x, y, 2.0f * _scale, 2.0f * _scale, 8, 2);
         id = _id;
         moveSpeed = _speed;
         scale = _scale;
         hp = _scale + 1;
+        moveDir = dir;
 
         if(_scale==3)
         {
@@ -69,14 +78,8 @@ public class Boss extends AnimSprite implements IBoxCollidable {
                     new Rect(16 + 1, 0, 32 + 1, 16),
             },
             new Rect[]{
-                    new Rect(0,16+1,16,32+1)
-            },
-            new Rect[]{
+                    new Rect(0,16+1,16,32+1),
                     new Rect(16+1,16+1,32+1,32+1)
-            },
-            new Rect[] {
-                    new Rect(0, 32+1, 16, 48+1),
-                    new Rect(16 + 1, 32+1, 32 + 1, 48+1),
             },
     };
 
@@ -86,7 +89,7 @@ public class Boss extends AnimSprite implements IBoxCollidable {
         long now = System.currentTimeMillis();
         float time = (now - createdOn) / 1000.0f;
         Rect[] rects = null;
-        if(state== Boss.State.spawn)
+        if(state== Boss.State.spawn||isDamaged)
         {
             rects = srcRects[1];
         }
@@ -96,14 +99,22 @@ public class Boss extends AnimSprite implements IBoxCollidable {
         }
         else if(state== Boss.State.dead)
         {
-            rects = srcRects[2];
+            rects = srcRects[1];
         }
         int frameIndex = 0;
         if(rects!=null)
         {
             frameIndex = Math.round(time * fps) % rects.length;
         }
-        canvas.drawBitmap(bitmap, rects[frameIndex], dstRect, null);
+        if(!isCharging)
+        {
+            canvas.drawBitmap(bitmap, rects[frameIndex], dstRect, null);
+        }
+        else
+        {
+            canvas.drawBitmap(bitmap, rects[1], dstRect, null);
+        }
+
 
         if(state==State.common)
         {
@@ -129,6 +140,16 @@ public class Boss extends AnimSprite implements IBoxCollidable {
 
     @Override
     public void update() {
+        if(id==0)UpdateSlime();
+        fixDstRect();
+    }
+    @Override
+    public RectF getCollisionRect() {
+        return dstRect;
+    }
+
+    void UpdateSlime()
+    {
         if(state==State.spawn)
         {
             y-=0.01;
@@ -139,7 +160,10 @@ public class Boss extends AnimSprite implements IBoxCollidable {
         }
         if(state==State.common)
         {
-            x+= moveDir*moveSpeed;
+            if(!isCharging)
+            {
+                x+= moveDir*moveSpeed;
+            }
             if(x < boundaryL)
             {
                 x+=moveSpeed;
@@ -150,6 +174,30 @@ public class Boss extends AnimSprite implements IBoxCollidable {
                 x-=moveSpeed;
                 moveDir = -1;
             }
+
+            coolTime+=BaseScene.frameTime;
+            if(coolTime>jumpCoolTime)
+            {
+                isCharging = true;
+                chargeTime+=BaseScene.frameTime;
+
+                if (chargeTime>2)
+                {
+                    fallSpeed = -16;
+                    coolTime = 0;
+                    jumpCoolTime = r.nextInt(5)+3;
+
+                    chargeTime = 0;
+                    isCharging = false;
+                }
+            }
+
+            float dy = fallSpeed * BaseScene.frameTime;
+            fallSpeed += 18 * BaseScene.frameTime;
+            if (y + dy >= ground) {
+                dy = ground - y;
+            }
+            y += dy;
         }
 
         if(isDamaged)
@@ -166,10 +214,5 @@ public class Boss extends AnimSprite implements IBoxCollidable {
         {
             MainScene.isBossStage = false;
         }
-        fixDstRect();
-    }
-    @Override
-    public RectF getCollisionRect() {
-        return dstRect;
     }
 }

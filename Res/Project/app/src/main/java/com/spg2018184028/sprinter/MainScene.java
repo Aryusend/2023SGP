@@ -12,10 +12,11 @@ public class MainScene extends BaseScene {
     private Weapon weapon;
 
     public static Boolean isBossStage = false;
+
+    public static int bossNum = 0;
     public enum Layer {
         bg, ground, item, player, weapon, enemy, ebullet, boss, controller, COUNT
     }
-
     public MainScene() {
         Metrics.setGameSize(27.0f, 9.0f);
         initLayers(Layer.COUNT);
