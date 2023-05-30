@@ -146,10 +146,6 @@ public class Player extends AnimSprite implements IBoxCollidable {
                     MainScene.isBossStage = true;
                 }
             }
-            if(stageLevel>=10)
-            {
-                stageLevel = 9;
-            }
         }
         if (state == State.jump) {
             float dy = jumpSpeed * BaseScene.frameTime;

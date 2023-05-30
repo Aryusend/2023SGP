@@ -19,6 +19,7 @@ public class Boss extends AnimSprite implements IBoxCollidable {
     static int[] boss_ResIds = {
             R.mipmap.b1,
             R.mipmap.b2,
+            R.mipmap.b3
     };
     static private Random r = new Random();
     private int id;
@@ -99,6 +100,15 @@ public class Boss extends AnimSprite implements IBoxCollidable {
                     new Rect(0,16+1,16,32+1),
                     new Rect(16+1,16+1,32+1,32+1)
             },
+            new Rect[] {
+                    new Rect(0, 0, 32, 32),
+                    new Rect(32 + 1, 0, 64 + 1, 32),
+            },
+            new Rect[]{
+                    new Rect(0,32+1,32,64+1),
+                    new Rect(32+1,32+1,64+1,64+1)
+            },
+
     };
 
 
@@ -110,14 +120,26 @@ public class Boss extends AnimSprite implements IBoxCollidable {
         if(state== Boss.State.spawn||isDamaged)
         {
             rects = srcRects[1];
+            if(id==2)
+            {
+                rects = srcRects[3];
+            }
         }
         else if(state== Boss.State.common)
         {
             rects = srcRects[0];
+            if(id==2)
+            {
+                rects = srcRects[2];
+            }
         }
         else if(state== Boss.State.dead)
         {
             rects = srcRects[1];
+            if(id==2)
+            {
+                rects = srcRects[3];
+            }
         }
         int frameIndex = 0;
         if(rects!=null)
@@ -130,14 +152,15 @@ public class Boss extends AnimSprite implements IBoxCollidable {
         }
         else
         {
-            canvas.drawBitmap(bitmap, rects[1], dstRect, null);
-        }
 
-        if(state==State.spawn && scale==3)
-        {
-            canvas.save();
-            canvas.drawText("보스 등장", 10.5f, 5.5f, paint);
-            canvas.restore();
+            if(id!=2)
+            {
+                canvas.drawBitmap(bitmap, rects[1], dstRect, null);
+            }
+            else
+            {
+                canvas.drawBitmap(bitmap, rects[3], dstRect, null);
+            }
         }
 
         if(id==0)
@@ -174,9 +197,13 @@ public class Boss extends AnimSprite implements IBoxCollidable {
                 canvas.restore();
             }
         }
-        else if(id==2)
-        {
 
+        if(state==State.spawn)
+        {
+            if((id==0&&scale!=3))return;
+            canvas.save();
+            canvas.drawText("보스 등장", 10.5f, 5.5f, paint);
+            canvas.restore();
         }
     }
 
@@ -184,6 +211,7 @@ public class Boss extends AnimSprite implements IBoxCollidable {
     public void update() {
         if(id==0)UpdateSlime();
         else if(id==1)UpdateDevil();
+        else if(id==2)UpdateDragon();
         fixDstRect();
     }
     @Override
@@ -380,5 +408,17 @@ public class Boss extends AnimSprite implements IBoxCollidable {
             }
         }
 
+    }
+
+    void UpdateDragon()
+    {
+        if(state==State.spawn)
+        {
+            y+=0.01;
+            if(y > ground)
+            {
+                state= Boss.State.common;
+            }
+        }
     }
 }
