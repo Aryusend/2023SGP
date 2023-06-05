@@ -8,6 +8,8 @@ import com.spg2018184028.sprinter.framework.Item;
 import com.spg2018184028.sprinter.framework.Metrics;
 
 public class MainScene extends BaseScene {
+    public static boolean isGamePause = false;
+    public static boolean isLevelUpPause = false;
     public static final Player player = new Player();
     private Weapon weapon;
 
@@ -37,6 +39,8 @@ public class MainScene extends BaseScene {
         weapon = new Weapon(player.GetX(),player.GetY());
         add(Layer.weapon, weapon);
         add(Layer.controller, new CollisionChecker(weapon));
+
+        add(Layer.controller, new Pause(13.5f,4.5f));
     }
 
 

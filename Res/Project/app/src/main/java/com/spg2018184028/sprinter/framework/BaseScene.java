@@ -10,6 +10,7 @@ import android.view.MotionEvent;
 import java.util.ArrayList;
 
 import com.spg2018184028.sprinter.BuildConfig;
+import com.spg2018184028.sprinter.MainScene;
 import com.spg2018184028.sprinter.framework.IBoxCollidable;
 import com.spg2018184028.sprinter.framework.IGameObject;
 import com.spg2018184028.sprinter.framework.IRecyclable;
@@ -114,10 +115,13 @@ public class BaseScene {
     }
     public void update(long elapsedNanos) {
         frameTime = elapsedNanos / 1_000_000_000f;
-        for (ArrayList<IGameObject> objects: layers) {
-            for (int i = objects.size() - 1; i >= 0; i--) {
-                IGameObject gobj = objects.get(i);
-                gobj.update();
+        if(!MainScene.isGamePause)
+        {
+            for (ArrayList<IGameObject> objects: layers) {
+                for (int i = objects.size() - 1; i >= 0; i--) {
+                    IGameObject gobj = objects.get(i);
+                    gobj.update();
+                }
             }
         }
     }

@@ -7,7 +7,11 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 
+import com.spg2018184028.sprinter.framework.Background;
 import com.spg2018184028.sprinter.framework.BaseScene;
+import com.spg2018184028.sprinter.framework.IGameObject;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
     public static final String TAG = MainActivity.class.getSimpleName();
@@ -32,22 +36,42 @@ public class MainActivity extends AppCompatActivity {
 
     public void onClickLeftButton(View view)
     {
-        MainScene.player.ChangeMoveDir(-1);
+        if(!MainScene.isLevelUpPause)
+        {
+            MainScene.player.ChangeMoveDir(-1);
+        }
     }
 
     public void onClickRightButton(View view)
     {
-        MainScene.player.ChangeMoveDir(1);
+        if(!MainScene.isLevelUpPause)
+        {
+            MainScene.player.ChangeMoveDir(1);
+        }
     }
 
     public void onClickJumpButton(View view)
     {
-        MainScene.player.Jump();
+        if(!MainScene.isLevelUpPause)
+        {
+            MainScene.player.Jump();
+        }
     }
 
     public void onClickPauseButton(View view) {
-        Log.d(TAG, "pause button clicked!!");
-        new PauseScene().pushScene();
+        //Log.d(TAG, "pause button clicked!!");
+        if(!MainScene.isLevelUpPause)
+        {
+            if(MainScene.isGamePause)
+            {
+                MainScene.isGamePause = false;
+            }
+            else
+            {
+                MainScene.isGamePause = true;
+            }
+
+        }
     }
 
     protected void onPause() {
