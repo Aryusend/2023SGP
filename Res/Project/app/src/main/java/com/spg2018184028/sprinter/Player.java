@@ -23,7 +23,7 @@ public class Player extends AnimSprite implements IBoxCollidable {
     private int moveDir = 0;
     public int stageLevel = 0;
 
-    private int stageTime = 5;
+    private int stageTime = 40;
     private Gauge hpGauge = new Gauge(0.1f, R.color.red,R.color.gray_600);
     public float maxHp = 20;
     public float curHp = 0;

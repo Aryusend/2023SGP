@@ -205,6 +205,17 @@ public class Boss extends AnimSprite implements IBoxCollidable {
                 canvas.restore();
             }
         }
+        else if(id==2)
+        {
+            if(state==State.common)
+            {
+                canvas.save();
+                canvas.translate(x - 2.5f, y + 2.5f);
+                canvas.scale(5.0f, 6.0f);
+                hpGauge.draw(canvas, hp / 6);
+                canvas.restore();
+            }
+        }
 
         if(state==State.spawn)
         {
@@ -470,7 +481,10 @@ public class Boss extends AnimSprite implements IBoxCollidable {
                             }
                             else
                             {
-                                scene.add(MainScene.Layer.enemy ,new Enemy(rn[i]*2 + 2.5f, 9,n-1,0.02f));
+                                if(n-1<9)
+                                {
+                                    scene.add(MainScene.Layer.enemy ,new Enemy(rn[i]*2 + 2.5f, 9,n-1,0.02f));
+                                }
                             }
                         }
                     }
