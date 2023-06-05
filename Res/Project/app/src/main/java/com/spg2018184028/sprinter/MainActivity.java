@@ -47,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void onClickPauseButton(View view) {
         Log.d(TAG, "pause button clicked!!");
+        new PauseScene().pushScene();
     }
 
     protected void onPause() {

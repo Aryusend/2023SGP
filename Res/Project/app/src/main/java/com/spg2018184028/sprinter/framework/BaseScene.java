@@ -13,6 +13,7 @@ import com.spg2018184028.sprinter.BuildConfig;
 import com.spg2018184028.sprinter.framework.IBoxCollidable;
 import com.spg2018184028.sprinter.framework.IGameObject;
 import com.spg2018184028.sprinter.framework.IRecyclable;
+import com.spg2018184028.sprinter.framework.ITouchable;
 
 public class BaseScene {
     private static ArrayList<BaseScene> stack = new ArrayList<>();
@@ -34,15 +35,32 @@ public class BaseScene {
     }
 
     public int pushScene() {
+        BaseScene scene = getTopScene();
+        if (scene != null) {
+            scene.onPause();
+        }
         stack.add(this);
+        this.onStart();
         return stack.size();
     }
 
     public void popScene() {
+        this.onEnd();
         stack.remove(this);
         // TODO: additional callback should be called
+        BaseScene scene = getTopScene();
+        if (scene != null) {
+            scene.onResume();
+        }
     }
 
+    public void pauseScene() {
+        onPause();
+    }
+
+    public void resumeScene() {
+        onResume();
+    }
     protected <E extends Enum<E>> void initLayers(E countEnum) {
         int layerCount = countEnum.ordinal();
         layers = new ArrayList<>();
@@ -111,6 +129,7 @@ public class BaseScene {
             }
         }
 
+        /*
         if (BuildConfig.DEBUG) {
             if (bboxPaint == null) {
                 bboxPaint = new Paint();
@@ -126,6 +145,8 @@ public class BaseScene {
                 }
             }
         }
+
+         */
     }
 
     protected ArrayList<ArrayList<IGameObject>> layers = new ArrayList<>();
@@ -133,7 +154,34 @@ public class BaseScene {
         return layers.get(layerEnum.ordinal());
     }
 
+    public boolean onTouchEvent(MotionEvent event) {
+        int touchLayer = getTouchLayerIndex();
+        if (touchLayer < 0) return false;
+        ArrayList<IGameObject> gameObjects = layers.get(touchLayer);
+        for (IGameObject gobj : gameObjects) {
+            if (!(gobj instanceof ITouchable)) {
+                continue;
+            }
+            boolean processed = ((ITouchable) gobj).onTouchEvent(event);
+            if (processed) return true;
+        }
+        return false;
+    }
+
+    protected int getTouchLayerIndex() {
+        return -1;
+    }
     public boolean clipsRect() {
         return true;
+    }
+
+    protected void onStart() {
+    }
+    protected void onEnd() {
+    }
+
+    protected void onPause() {
+    }
+    protected void onResume() {
     }
 }
