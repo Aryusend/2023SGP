@@ -36,25 +36,47 @@ public class MainActivity extends AppCompatActivity {
 
     public void onClickLeftButton(View view)
     {
-        if(!MainScene.isLevelUpPause)
+        if(!MainScene.isGamePause)
         {
             MainScene.player.ChangeMoveDir(-1);
+        }
+        else
+        {
+            if(MainScene.isLevelUpPause)
+            {
+
+            }
         }
     }
 
     public void onClickRightButton(View view)
     {
-        if(!MainScene.isLevelUpPause)
+        if(!MainScene.isGamePause)
         {
             MainScene.player.ChangeMoveDir(1);
+        }
+        else
+        {
+            if(MainScene.isLevelUpPause)
+            {
+
+            }
         }
     }
 
     public void onClickJumpButton(View view)
     {
-        if(!MainScene.isLevelUpPause)
+        if(!MainScene.isGamePause)
         {
             MainScene.player.Jump();
+        }
+        else
+        {
+            if(MainScene.isLevelUpPause)
+            {
+                MainScene.isGamePause = false;
+                MainScene.isLevelUpPause = false;
+            }
         }
     }
 

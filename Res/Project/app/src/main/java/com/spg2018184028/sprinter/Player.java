@@ -173,6 +173,10 @@ public class Player extends AnimSprite implements IBoxCollidable {
         {
             reqExp= (float) Math.floor((double) (reqExp + reqExp/2));
             curExp = 0;
+
+            MainScene.isLevelUpPause = true;
+            MainScene.isGamePause = true;
+            
         }
 
         if(isDamaged)
