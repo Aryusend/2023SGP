@@ -44,7 +44,11 @@ public class MainActivity extends AppCompatActivity {
         {
             if(MainScene.isLevelUpPause)
             {
-
+                MainScene.levelUpIndex--;
+                if(MainScene.levelUpIndex<0)
+                {
+                    MainScene.levelUpIndex=2;
+                }
             }
         }
     }
@@ -59,7 +63,11 @@ public class MainActivity extends AppCompatActivity {
         {
             if(MainScene.isLevelUpPause)
             {
-
+                MainScene.levelUpIndex++;
+                if(MainScene.levelUpIndex>2)
+                {
+                    MainScene.levelUpIndex=0;
+                }
             }
         }
     }

@@ -10,6 +10,7 @@ import com.spg2018184028.sprinter.framework.Metrics;
 public class MainScene extends BaseScene {
     public static boolean isGamePause = false;
     public static boolean isLevelUpPause = false;
+    public static int levelUpIndex = 0;
     public static final Player player = new Player();
     private Weapon weapon;
 

@@ -16,18 +16,18 @@ public class Pause extends Sprite implements IBoxCollidable {
 
     protected Paint bluePaint;
     protected Paint bluePaint2;
+    protected Paint borderPaint;
+    protected Paint borderPaint2;
+
+    protected static RectF[] Rects = {
+            new RectF(1.5f, 3, 8.5f, 8),
+            new RectF(10, 3, 17, 8),
+            new RectF(18.5f, 3, 25.5f, 8),
+    };
 
     public Pause(float x, float y) {
         super(resIds, x, y, 27, 9);
-
-
-        bluePaint = new Paint();
-        bluePaint.setColor(Color.BLUE);
-        bluePaint.setTextSize(3f);
-
-        bluePaint2 = new Paint();
-        bluePaint2.setColor(Color.BLUE);
-        bluePaint2.setTextSize(2f);
+        SetPaint();
     }
 
     protected static Rect[] srcRects = {
@@ -44,6 +44,13 @@ public class Pause extends Sprite implements IBoxCollidable {
                 canvas.save();
                 canvas.drawText("능력치 업", 9f, 2f, bluePaint2);
                 canvas.restore();
+
+                for(int i=0; i<3; i++)
+                {
+                    canvas.drawRect(Rects[i], borderPaint);
+                }
+
+                canvas.drawRect(Rects[MainScene.levelUpIndex], borderPaint2);
             }
             else
             {
@@ -62,4 +69,26 @@ public class Pause extends Sprite implements IBoxCollidable {
     public RectF getCollisionRect() {
         return dstRect;
     }
+
+    private void SetPaint()
+    {
+        bluePaint = new Paint();
+        bluePaint.setColor(Color.BLUE);
+        bluePaint.setTextSize(3f);
+
+        bluePaint2 = new Paint();
+        bluePaint2.setColor(Color.BLUE);
+        bluePaint2.setTextSize(2f);
+
+        borderPaint = new Paint();
+        borderPaint.setColor(Color.WHITE);
+        borderPaint.setStyle(Paint.Style.FILL);
+        borderPaint.setStrokeWidth(0.1f);
+
+        borderPaint2 = new Paint();
+        borderPaint2.setColor(Color.RED);
+        borderPaint2.setStyle(Paint.Style.STROKE);
+        borderPaint2.setStrokeWidth(0.1f);
+    }
+
 }
