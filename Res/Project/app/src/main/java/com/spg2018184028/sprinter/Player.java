@@ -176,7 +176,7 @@ public class Player extends AnimSprite implements IBoxCollidable {
 
             MainScene.isLevelUpPause = true;
             MainScene.isGamePause = true;
-            
+
         }
 
         if(isDamaged)

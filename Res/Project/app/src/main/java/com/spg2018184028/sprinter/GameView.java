@@ -113,6 +113,7 @@ public class GameView extends View implements Choreographer.FrameCallback {
             scene.draw(canvas);
         }
 
+        /*
         if (BuildConfig.DEBUG) {
             canvas.drawRect(0, 0, Metrics.game_width, Metrics.game_height, borderPaint);
         }
@@ -123,6 +124,8 @@ public class GameView extends View implements Choreographer.FrameCallback {
             int count = (scene != null) ? scene.count() : 0;
             canvas.drawText("FPS: " + fps + " objs: " + count, 100f, 200f, fpsPaint);
         }
+
+         */
     }
 
     public void pauseGame() {

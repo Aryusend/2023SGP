@@ -88,6 +88,9 @@ public class CollisionChecker implements IGameObject {
                     }
                     if(item.itemId==3)
                     {
+                        MainScene.isGamePause = true;
+                        MainScene.isLevelUpPause = true;
+                        MainScene.player.curHp = MainScene.player.maxHp;
                         MainScene.isBossStage = false;
                     }
                     if(item.itemId==4)

@@ -14,10 +14,20 @@ import com.spg2018184028.sprinter.framework.Sprite;
 public class Pause extends Sprite implements IBoxCollidable {
     static int resIds = R.mipmap.pausebg;
 
-    protected Paint paint;
+    protected Paint bluePaint;
+    protected Paint bluePaint2;
 
     public Pause(float x, float y) {
         super(resIds, x, y, 27, 9);
+
+
+        bluePaint = new Paint();
+        bluePaint.setColor(Color.BLUE);
+        bluePaint.setTextSize(3f);
+
+        bluePaint2 = new Paint();
+        bluePaint2.setColor(Color.BLUE);
+        bluePaint2.setTextSize(2f);
     }
 
     protected static Rect[] srcRects = {
@@ -29,6 +39,18 @@ public class Pause extends Sprite implements IBoxCollidable {
         if(MainScene.isGamePause)
         {
             canvas.drawBitmap(bitmap, srcRects[0], dstRect, null);
+            if(MainScene.isLevelUpPause)
+            {
+                canvas.save();
+                canvas.drawText("능력치 업", 9f, 2f, bluePaint2);
+                canvas.restore();
+            }
+            else
+            {
+                canvas.save();
+                canvas.drawText("일시정지", 8f, 5.5f, bluePaint);
+                canvas.restore();
+            }
         }
     }
     @Override

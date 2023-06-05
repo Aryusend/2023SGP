@@ -16,8 +16,8 @@ public class Weapon extends Sprite implements IBoxCollidable {
     }
 
     protected static Rect[] srcRects = {
-            new Rect(0, 0, 16, 16),
-            new Rect(16, 0, 32, 16),
+            new Rect(0, 0, 16, 15),
+            new Rect(16, 0, 32, 15),
     };
 
     @Override

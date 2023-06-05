@@ -35,11 +35,11 @@ public class Item extends Sprite implements IBoxCollidable {
     }
 
     protected static Rect[] srcRects = {
-            new Rect(0, 16, 16, 32),
-            new Rect(0, 32, 16, 48),
-            new Rect(16, 16, 32, 32),
-            new Rect(16, 32, 32, 48),
-            new Rect(0, 48, 16, 64),
+            new Rect(0, 16, 15, 31),
+            new Rect(0, 32, 15, 47),
+            new Rect(16, 16, 32, 31),
+            new Rect(16, 32, 32, 47),
+            new Rect(0, 48, 15, 63),
     };
 
     @Override
