@@ -39,6 +39,7 @@ public class Item extends Sprite implements IBoxCollidable {
             new Rect(0, 32, 16, 48),
             new Rect(16, 16, 32, 32),
             new Rect(16, 32, 32, 48),
+            new Rect(0, 48, 16, 64),
     };
 
     @Override

@@ -90,6 +90,14 @@ public class CollisionChecker implements IGameObject {
                     {
                         MainScene.isBossStage = false;
                     }
+                    if(item.itemId==4)
+                    {
+                        Random r = new Random();
+                        int n = r.nextInt(100);
+                        if(n<30) {
+                            MainScene.player.curHp--;
+                        }
+                    }
                     scene.remove(MainScene.Layer.item, gobj);
                 }
             }

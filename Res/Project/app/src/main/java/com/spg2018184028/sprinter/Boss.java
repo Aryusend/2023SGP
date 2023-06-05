@@ -10,8 +10,10 @@ import com.spg2018184028.sprinter.framework.AnimSprite;
 import com.spg2018184028.sprinter.framework.BaseScene;
 import com.spg2018184028.sprinter.framework.Gauge;
 import com.spg2018184028.sprinter.framework.IBoxCollidable;
+import com.spg2018184028.sprinter.framework.IGameObject;
 import com.spg2018184028.sprinter.framework.Item;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 public class Boss extends AnimSprite implements IBoxCollidable {
@@ -148,18 +150,24 @@ public class Boss extends AnimSprite implements IBoxCollidable {
         }
         if(!isCharging)
         {
-            canvas.drawBitmap(bitmap, rects[frameIndex], dstRect, null);
+            if(id!=2)
+            {
+                canvas.drawBitmap(bitmap, rects[frameIndex], dstRect, null);
+            }
+            else
+            {
+                canvas.drawBitmap(bitmap, rects[frameIndex], dstRect, null);
+            }
         }
         else
         {
-
             if(id!=2)
             {
                 canvas.drawBitmap(bitmap, rects[1], dstRect, null);
             }
             else
             {
-                canvas.drawBitmap(bitmap, rects[3], dstRect, null);
+                canvas.drawBitmap(bitmap, rects[1], dstRect, null);
             }
         }
 
@@ -226,7 +234,7 @@ public class Boss extends AnimSprite implements IBoxCollidable {
             y-=0.01;
             if(y< ground)
             {
-                state= Boss.State.common;
+                state= State.common;
             }
         }
         if(state==State.common)
@@ -333,7 +341,7 @@ public class Boss extends AnimSprite implements IBoxCollidable {
             y+=0.01;
             if(y > ground)
             {
-                state= Boss.State.common;
+                state= State.common;
             }
         }
         if(state==State.common)
@@ -359,15 +367,15 @@ public class Boss extends AnimSprite implements IBoxCollidable {
                     int a = r.nextInt(3);
                     if(a==0)
                     {
-                        scene.add(MainScene.Layer.ebullet,new EnemyBullet(x,y-2,a, moveDir, 0.02f, 1.5f));
+                        scene.add(MainScene.Layer.ebullet,new EnemyBullet(x,y-2,a, moveDir, 0.06f, 1.5f));
                     }
                     else if(a==1)
                     {
-                        scene.add(MainScene.Layer.ebullet,new EnemyBullet(x,y,a, moveDir, 0.02f, 1.5f));
+                        scene.add(MainScene.Layer.ebullet,new EnemyBullet(x,y,a, moveDir, 0.06f, 1.5f));
                     }
                     else if(a==2)
                     {
-                        scene.add(MainScene.Layer.ebullet,new EnemyBullet(x,y+2,a, moveDir, 0.02f, 1.5f));
+                        scene.add(MainScene.Layer.ebullet,new EnemyBullet(x,y+2,a, moveDir, 0.06f, 1.5f));
                     }
 
 
@@ -417,7 +425,136 @@ public class Boss extends AnimSprite implements IBoxCollidable {
             y+=0.01;
             if(y > ground)
             {
-                state= Boss.State.common;
+                state= State.common;
+            }
+        }
+        else if(state==State.common)
+        {
+            coolTime+=BaseScene.frameTime;
+            if(coolTime>jumpCoolTime)
+            {
+                isCharging = true;
+                chargeTime+=BaseScene.frameTime;
+
+                if (chargeTime>2)
+                {
+                    MainScene scene = (MainScene) BaseScene.getTopScene();
+                    int a = r.nextInt(3)+1;
+                    int[] rn= new int[5];
+                    if(a == 1)
+                    {
+                        for(int i=0; i<5; i++)
+                        {
+                            rn[i] = r.nextInt(12);
+                            for(int j=0; j<i; j++)
+                            {
+                                if(rn[j]==rn[i])
+                                {
+                                    rn[i] = r.nextInt(12);
+                                }
+                            }
+                        }
+                        int n = 1;
+                        for (int i = 0; i < 5; i++) {
+                            n = r.nextInt(MainScene.player.stageLevel)+1;
+                            if(n<4)
+                            {
+                                if(n==2)scene.add(MainScene.Layer.enemy ,new Enemy(rn[i]*2 + 2.5f, 9,n-1,0.06f));
+                                else if(n==3) scene.add(MainScene.Layer.enemy ,new Enemy(rn[i]*2 + 2.5f, 9,n-1,0.04f));
+                                else scene.add(MainScene.Layer.enemy ,new Enemy(rn[i]*2 + 2.5f, 9,n-1,0.02f));
+                            }
+                            else if(n>=4 && n<7)
+                            {
+                                if(n!=5)scene.add(MainScene.Layer.enemy ,new Enemy(rn[i]*2 + 2.5f, 0,n-1,0.02f));
+                                else scene.add(MainScene.Layer.enemy ,new Enemy(rn[i]*2 + 2.5f, 0,n-1,0.01f));
+                            }
+                            else
+                            {
+                                scene.add(MainScene.Layer.enemy ,new Enemy(rn[i]*2 + 2.5f, 9,n-1,0.02f));
+                            }
+                        }
+                    }
+                    else if(a == 2)
+                    {
+                        scene.add(MainScene.Layer.ebullet,new EnemyBullet(x-5,y,1, -1, 0.06f, 1.5f));
+                        scene.add(MainScene.Layer.ebullet,new EnemyBullet(x,y+2,1, -1, 0.06f, 1.5f));
+                    }
+                    else
+                    {
+                        fallSpeed = -16;
+                        ArrayList<IGameObject> enemies = scene.getObjectsAt(MainScene.Layer.enemy);
+                        for (IGameObject o1 : enemies) {
+                            if (!(o1 instanceof Enemy)) {
+                                continue;
+                            }
+                            Enemy enemy = (Enemy) o1;
+                            enemy.state = Enemy.State.dead;
+                        }
+                        for(int i=0; i<5; i++)
+                        {
+                            rn[i] = r.nextInt(12);
+                            for(int j=0; j<i; j++)
+                            {
+                                if(rn[j]==rn[i])
+                                {
+                                    rn[i] = r.nextInt(12);
+                                }
+                            }
+                        }
+                        for (int i = 0; i < 5; i++) {
+                            scene.add(MainScene.Layer.item,new Item(rn[i]*2 + 2.5f,0,4));
+                        }
+                    }
+                    coolTime = 0;
+                    jumpCoolTime = r.nextInt(5)+3;
+
+                    chargeTime = 0;
+                    isCharging = false;
+                }
+            }
+            float dy = fallSpeed * BaseScene.frameTime;
+            fallSpeed += 18 * BaseScene.frameTime;
+            if (y + dy >= ground) {
+                dy = ground - y;
+            }
+            y += dy;
+            if(hp==0)
+            {
+                BaseScene scene = BaseScene.getTopScene();
+                scene.add(MainScene.Layer.item,new Item(13.5f,0,2));
+                state=State.dead;
+            }
+        }
+        if(isDamaged)
+        {
+            damagedTime+=BaseScene.frameTime;
+            if (damagedTime > 3)
+            {
+                damagedTime = 0;
+                isDamaged = false;
+            }
+        }
+        if(state == State.dead)
+        {
+            y+=0.04;
+            if(y>9)
+            {
+                MainScene scene = (MainScene) BaseScene.getTopScene();
+                ArrayList<IGameObject> enemies = scene.getObjectsAt(MainScene.Layer.enemy);
+                ArrayList<IGameObject> enemyBullets = scene.getObjectsAt(MainScene.Layer.ebullet);
+                for (IGameObject o1 : enemies) {
+                    if (!(o1 instanceof Enemy)) {
+                        continue;
+                    }
+                    Enemy enemy = (Enemy) o1;
+                    enemy.state = Enemy.State.dead;
+                }
+                for (int i = enemyBullets.size() - 1; i >= 0; i--) {
+                    IGameObject gobj = enemyBullets.get(i);
+                    scene.remove(MainScene.Layer.ebullet, gobj);
+                }
+                scene.remove(MainScene.Layer.boss,this);
+                MainScene.bossNum--;
             }
         }
     }
