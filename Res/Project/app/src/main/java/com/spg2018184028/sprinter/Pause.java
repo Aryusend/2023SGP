@@ -18,6 +18,7 @@ public class Pause extends Sprite implements IBoxCollidable {
     protected Paint bluePaint2;
     protected Paint borderPaint;
     protected Paint borderPaint2;
+    protected Paint blackPaint;
 
     protected static RectF[] Rects = {
             new RectF(1.5f, 3, 8.5f, 8),
@@ -34,6 +35,15 @@ public class Pause extends Sprite implements IBoxCollidable {
             new Rect(0, 0, 80, 192),
     };
 
+    private String[] selectOption ={
+            "HP회복",
+            "이동속도",
+            "최대HP",
+            "무기길이",
+            "경험치배율",
+            "점수100"
+    };
+
     @Override
     public void draw(Canvas canvas) {
         if(MainScene.isGamePause)
@@ -43,14 +53,32 @@ public class Pause extends Sprite implements IBoxCollidable {
             {
                 canvas.save();
                 canvas.drawText("능력치 업", 9f, 2f, bluePaint2);
+                canvas.drawText("능력치 업", 9f, 2f, bluePaint2);
                 canvas.restore();
 
                 for(int i=0; i<3; i++)
                 {
+                    canvas.save();
                     canvas.drawRect(Rects[i], borderPaint);
+                    canvas.restore();
                 }
 
+                canvas.save();
+                canvas.drawText(selectOption[0], 2.5f, 6f, blackPaint);
+                canvas.restore();
+                canvas.save();
+                canvas.drawText(selectOption[5], 11f, 6f, blackPaint);
+                canvas.restore();
+                canvas.save();
+                canvas.drawText(selectOption[4], 19.5f, 6f, blackPaint);
+                canvas.restore();
+
+
+                canvas.save();
                 canvas.drawRect(Rects[MainScene.levelUpIndex], borderPaint2);
+                canvas.restore();
+
+
             }
             else
             {
@@ -89,6 +117,11 @@ public class Pause extends Sprite implements IBoxCollidable {
         borderPaint2.setColor(Color.RED);
         borderPaint2.setStyle(Paint.Style.STROKE);
         borderPaint2.setStrokeWidth(0.1f);
+
+
+        blackPaint = new Paint();
+        blackPaint.setColor(Color.BLACK);
+        blackPaint.setTextSize(1f);
     }
 
 }
