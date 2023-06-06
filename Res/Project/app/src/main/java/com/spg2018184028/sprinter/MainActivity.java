@@ -86,6 +86,9 @@ public class MainActivity extends AppCompatActivity {
                 MainScene.isLevelUpPause = false;
             }
         }
+        Weapon.widthPlus+=0.1;
+        Weapon.yOffset-=0.05;
+        Weapon.xOffset-=0.1;
     }
 
     public void onClickPauseButton(View view) {

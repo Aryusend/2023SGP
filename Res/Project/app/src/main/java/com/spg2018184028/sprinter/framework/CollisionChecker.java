@@ -72,7 +72,7 @@ public class CollisionChecker implements IGameObject {
                 {
                     if(item.itemId==1)
                     {
-                        MainScene.player.curExp++;
+                        MainScene.player.curExp += MainScene.player.expPlus;
                     }
                     if(item.itemId==0)
                     {

@@ -12,6 +12,7 @@ public class MainScene extends BaseScene {
     public static boolean isLevelUpPause = false;
     public static int levelUpIndex = 0;
     public static int[] levelUpSelect = {0,1,2};
+    public static int score = 0;
     public static final Player player = new Player();
     private Weapon weapon;
 

@@ -21,7 +21,7 @@ public class Player extends AnimSprite implements IBoxCollidable {
     private float jumpSpeed;
     private static final float JUMP_POWER = 10.0f;
     private static final float GRAVITY = 18.0f;
-    private float moveSpeed = 0.04f;
+    public static float moveSpeed = 0.04f;
     private int moveDir = 0;
     public int stageLevel = 0;
 
@@ -34,6 +34,7 @@ public class Player extends AnimSprite implements IBoxCollidable {
     public float reqExp;
     public float curExp = 0;
 
+    public int expPlus = 1;
     protected Paint timePaint;
     private float eTime = 0;
     public Player() {
