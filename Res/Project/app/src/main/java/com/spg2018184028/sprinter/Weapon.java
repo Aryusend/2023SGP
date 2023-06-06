@@ -24,7 +24,8 @@ public class Weapon extends Sprite implements IBoxCollidable {
 
     @Override
     public void draw(Canvas canvas) {
-        dstRect = new RectF(dstRect.left,dstRect.top,dstRect.right + widthPlus,dstRect.bottom + widthPlus);
+        if(!MainScene.isGamePause)
+            dstRect = new RectF(dstRect.left,dstRect.top,dstRect.right + widthPlus,dstRect.bottom + widthPlus);
         if (MainScene.player.GetDir() == -1) {
             canvas.drawBitmap(bitmap, srcRects[1], dstRect, null);
         } else {
@@ -33,6 +34,7 @@ public class Weapon extends Sprite implements IBoxCollidable {
     }
     @Override
     public void update() {
+
         if(MainScene.player.GetDir() == -1)
         {
             x = MainScene.player.GetX() - 2 + xOffset;

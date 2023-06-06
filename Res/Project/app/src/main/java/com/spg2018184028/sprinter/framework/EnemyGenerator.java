@@ -13,7 +13,7 @@ import com.spg2018184028.sprinter.framework.BaseScene;
 import com.spg2018184028.sprinter.framework.IGameObject;
 
 public class EnemyGenerator implements IGameObject {
-    private static final float GEN_INTERVAL = 8.0f;
+    private static final float GEN_INTERVAL = 6.0f;
     private float time;
 
     private Boolean isBossSpawn = false;

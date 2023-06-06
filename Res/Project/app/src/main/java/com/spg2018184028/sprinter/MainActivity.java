@@ -84,11 +84,37 @@ public class MainActivity extends AppCompatActivity {
             {
                 MainScene.isGamePause = false;
                 MainScene.isLevelUpPause = false;
+
+                if(MainScene.levelUpSelect[MainScene.levelUpIndex]==0)
+                {
+                    MainScene.player.curHp = MainScene.player.maxHp;
+                }
+                else if(MainScene.levelUpSelect[MainScene.levelUpIndex]==1)
+                {
+                    MainScene.player.moveSpeed+=0.01;
+                }
+                if(MainScene.levelUpSelect[MainScene.levelUpIndex]==2)
+                {
+                    MainScene.player.maxHp+=2;
+                    MainScene.player.curHp+=2;
+                }
+                if(MainScene.levelUpSelect[MainScene.levelUpIndex]==3)
+                {
+                    Weapon.widthPlus+=0.2;
+                    Weapon.yOffset-=0.05;
+                    Weapon.xOffset-=0.1;
+                }
+                if(MainScene.levelUpSelect[MainScene.levelUpIndex]==4)
+                {
+                    MainScene.player.expPlus+=1;
+                }
+                if(MainScene.levelUpSelect[MainScene.levelUpIndex]==5)
+                {
+                    MainScene.score+=300;
+                }
+
             }
         }
-        Weapon.widthPlus+=0.1;
-        Weapon.yOffset-=0.05;
-        Weapon.xOffset-=0.1;
     }
 
     public void onClickPauseButton(View view) {
@@ -103,7 +129,6 @@ public class MainActivity extends AppCompatActivity {
             {
                 MainScene.isGamePause = true;
             }
-
         }
     }
 
