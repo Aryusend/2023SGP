@@ -64,13 +64,13 @@ public class Pause extends Sprite implements IBoxCollidable {
                 }
 
                 canvas.save();
-                canvas.drawText(selectOption[0], 2.5f, 6f, blackPaint);
+                canvas.drawText(selectOption[MainScene.levelUpSelect[0]], 2.5f, 6f, blackPaint);
                 canvas.restore();
                 canvas.save();
-                canvas.drawText(selectOption[5], 11f, 6f, blackPaint);
+                canvas.drawText(selectOption[MainScene.levelUpSelect[1]], 11f, 6f, blackPaint);
                 canvas.restore();
                 canvas.save();
-                canvas.drawText(selectOption[4], 19.5f, 6f, blackPaint);
+                canvas.drawText(selectOption[MainScene.levelUpSelect[2]], 19.5f, 6f, blackPaint);
                 canvas.restore();
 
 

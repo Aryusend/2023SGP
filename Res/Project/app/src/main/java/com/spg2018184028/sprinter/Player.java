@@ -13,6 +13,8 @@ import com.spg2018184028.sprinter.framework.BaseScene;
 import com.spg2018184028.sprinter.framework.Gauge;
 import com.spg2018184028.sprinter.framework.IBoxCollidable;
 
+import java.util.Random;
+
 public class Player extends AnimSprite implements IBoxCollidable {
     public static final String TAG = Player.class.getSimpleName();
     private final float ground;
@@ -177,6 +179,20 @@ public class Player extends AnimSprite implements IBoxCollidable {
             MainScene.isLevelUpPause = true;
             MainScene.isGamePause = true;
 
+            Random r = new Random();
+            int[] rs = new int[3];
+            for(int i=0; i<3; i++)
+            {
+                if(curHp!=maxHp)
+                {
+                    rs[i] = r.nextInt(6);
+                }
+                else
+                {
+                    rs[i] = r.nextInt(5)+1;
+                }
+            }
+            MainScene.levelUpSelect = rs;
         }
 
         if(isDamaged)

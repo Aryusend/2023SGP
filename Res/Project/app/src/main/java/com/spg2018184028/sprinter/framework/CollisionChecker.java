@@ -91,7 +91,22 @@ public class CollisionChecker implements IGameObject {
                         MainScene.isGamePause = true;
                         MainScene.isLevelUpPause = true;
                         MainScene.player.curHp = MainScene.player.maxHp;
+                        Random r = new Random();
+                        int[] rs = new int[3];
+                        for(int j=0; j<3; j++)
+                        {
+                            if(MainScene.player.curHp!=MainScene.player.maxHp)
+                            {
+                                rs[i] = r.nextInt(6);
+                            }
+                            else
+                            {
+                                rs[i] = r.nextInt(5)+1;
+                            }
+                        }
+                        MainScene.levelUpSelect = rs;
                         MainScene.isBossStage = false;
+
                     }
                     if(item.itemId==4)
                     {
