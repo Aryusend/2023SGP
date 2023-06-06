@@ -41,7 +41,7 @@ public class Pause extends Sprite implements IBoxCollidable {
             "최대HP",
             "무기길이",
             "경험치배율",
-            "점수100"
+            "점수300"
     };
 
     @Override
@@ -85,6 +85,11 @@ public class Pause extends Sprite implements IBoxCollidable {
                 canvas.save();
                 canvas.drawText("일시정지", 8f, 5.5f, bluePaint);
                 canvas.restore();
+
+                canvas.save();
+                canvas.drawText("점수 >>  "+ MainScene.score , 8f, 8f, blackPaint);
+                canvas.restore();
+
             }
         }
     }

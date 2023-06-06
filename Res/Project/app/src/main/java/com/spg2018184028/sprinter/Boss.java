@@ -570,6 +570,7 @@ public class Boss extends AnimSprite implements IBoxCollidable {
                 scene.remove(MainScene.Layer.boss,this);
                 MainScene.bossNum--;
             }
+            MainScene.score+=100;
         }
     }
 }

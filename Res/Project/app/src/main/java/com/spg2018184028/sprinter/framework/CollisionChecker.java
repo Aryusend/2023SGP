@@ -58,6 +58,7 @@ public class CollisionChecker implements IGameObject {
                     {
                         scene.add(MainScene.Layer.item,new Item(enemy.x,enemy.y,1));
                     }
+                    MainScene.score+=5;
                 }
             }
         }
