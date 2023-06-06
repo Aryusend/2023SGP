@@ -21,6 +21,7 @@ public class BaseScene {
     public static float frameTime;
     protected static Handler handler = new Handler();
     private static Paint bboxPaint;
+    protected long previousNanos;
 
     public static BaseScene getTopScene() {
         int top = stack.size() - 1;
@@ -51,7 +52,7 @@ public class BaseScene {
         // TODO: additional callback should be called
         BaseScene scene = getTopScene();
         if (scene != null) {
-            scene.onResume();
+            scene.resumeScene();
         }
     }
 
@@ -60,6 +61,7 @@ public class BaseScene {
     }
 
     public void resumeScene() {
+        previousNanos = 0;
         onResume();
     }
     protected <E extends Enum<E>> void initLayers(E countEnum) {
@@ -113,8 +115,15 @@ public class BaseScene {
         }
         return count;
     }
-    public void update(long elapsedNanos) {
+    public void update(long nanos) {
+        long prev = previousNanos;
+        previousNanos = nanos;
+        if (prev == 0) {
+            return;
+        }
+        long elapsedNanos = nanos - prev;
         frameTime = elapsedNanos / 1_000_000_000f;
+
         if(!MainScene.isGamePause)
         {
             for (ArrayList<IGameObject> objects: layers) {
