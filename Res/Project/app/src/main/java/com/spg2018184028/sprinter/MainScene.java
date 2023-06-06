@@ -46,5 +46,14 @@ public class MainScene extends BaseScene {
         add(Layer.controller, new Pause(13.5f,4.5f));
     }
 
+    @Override
+    protected void onStart() {
+        //Sound.playMusic();
+    }
+
+    @Override
+    protected void onEnd() {
+        Sound.stopMusic();
+    }
 
 }

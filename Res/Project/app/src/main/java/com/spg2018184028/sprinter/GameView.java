@@ -25,6 +25,8 @@ public class GameView extends View implements Choreographer.FrameCallback {
 
     protected boolean running;
 
+    public static GameView view;
+
     public GameView(Context context) {
         super(context);
         init(null, 0);
@@ -36,6 +38,11 @@ public class GameView extends View implements Choreographer.FrameCallback {
     public GameView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         init(attrs, defStyle);
+    }
+
+    public static void clear() {
+        view = null;
+        res = null;
     }
 
     public void setFullScreen() {
@@ -59,7 +66,7 @@ public class GameView extends View implements Choreographer.FrameCallback {
             borderPaint.setStyle(Paint.Style.STROKE);
             borderPaint.setStrokeWidth(0.1f);
         }
-
+        GameView.view = this;
         //setFullScreen();
     }
     @Override
