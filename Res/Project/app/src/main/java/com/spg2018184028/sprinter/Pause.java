@@ -92,11 +92,16 @@ public class Pause extends Sprite implements IBoxCollidable {
                     canvas.save();
                     canvas.drawText("점수 >>  "+ MainScene.score , 8f, 8f, blackPaint);
                     canvas.restore();
-
                 }
             }
             else
             {
+                boolean isHighScore = false;
+                if(MainScene.score > MainScene.highScore)
+                {
+                    MainScene.highScore = MainScene.score;
+                    isHighScore = true;
+                }
                 if(MainScene.player.curHp<=0)
                 {
                     canvas.save();
@@ -109,7 +114,14 @@ public class Pause extends Sprite implements IBoxCollidable {
                     canvas.drawText("게임 클리어!", 8f, 5.5f, bluePaint);
                     canvas.restore();
                     canvas.save();
-                    canvas.drawText("점수 >>  "+ MainScene.score , 8f, 8f, blackPaint);
+                    if(isHighScore)
+                    {
+                        canvas.drawText("점수 >>  "+ MainScene.score , 8f, 8f, blackPaint);
+                    }
+                    else
+                    {
+                        canvas.drawText("최고기록!!  "+ MainScene.score , 8f, 8f, blackPaint);
+                    }
                     canvas.restore();
                 }
             }
