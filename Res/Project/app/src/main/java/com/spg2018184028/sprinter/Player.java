@@ -126,11 +126,19 @@ public class Player extends AnimSprite implements IBoxCollidable {
         if(!MainScene.isBossStage)
         {
             canvas.save();
-            canvas.drawText("다음 적 등장까지", 1.0f, 1.6f, timePaint);
+            canvas.drawText("다", 1.0f, 1.6f, timePaint);
+            canvas.drawText("음", 2.0f, 1.6f, timePaint);
+            canvas.drawText("적", 3.0f, 1.6f, timePaint);
+            canvas.drawText("등", 4.0f, 1.6f, timePaint);
+            canvas.drawText("장", 5.0f, 1.6f, timePaint);
+            canvas.drawText("까", 6.0f, 1.6f, timePaint);
+            canvas.drawText("지", 7.0f, 1.6f, timePaint);
             canvas.restore();
 
             canvas.save();
-            canvas.drawText((stageTime - (int)eTime)+"초", 9.0f, 1.6f, timePaint);
+            canvas.drawText((stageTime - (int)eTime)/10+"", 9.0f, 1.6f, timePaint);
+            canvas.drawText((stageTime - (int)eTime)%10+"", 10.0f, 1.6f, timePaint);
+            canvas.drawText("초", 11.0f, 1.6f, timePaint);
             canvas.restore();
         }
     }
