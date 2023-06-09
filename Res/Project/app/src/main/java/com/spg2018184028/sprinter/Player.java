@@ -27,7 +27,7 @@ public class Player extends AnimSprite implements IBoxCollidable {
 
     private int stageTime = 40;
     private Gauge hpGauge = new Gauge(0.1f, R.color.red,R.color.gray_600);
-    public float maxHp = 20;
+    public float maxHp = 10;
     public float curHp = 0;
 
     private Gauge expGauge = new Gauge(0.1f, R.color.yellow,R.color.white);
@@ -40,8 +40,7 @@ public class Player extends AnimSprite implements IBoxCollidable {
     public Player() {
         super(R.mipmap.player, 13.5f, 6, 2.0f, 2.0f, 8, 2);
         this.ground = y;
-        curHp = maxHp;
-        reqExp = 10;
+        Init();
 
         timePaint = new Paint();
         timePaint.setColor(Color.BLACK);
@@ -127,7 +126,11 @@ public class Player extends AnimSprite implements IBoxCollidable {
         if(!MainScene.isBossStage)
         {
             canvas.save();
-            canvas.drawText("다음 적 등장까지" + (stageTime - (int)eTime)+"초", 1.0f, 1.6f, timePaint);
+            canvas.drawText("다음 적 등장까지", 1.0f, 1.6f, timePaint);
+            canvas.restore();
+
+            canvas.save();
+            canvas.drawText((stageTime - (int)eTime)+"초", 9.0f, 1.6f, timePaint);
             canvas.restore();
         }
     }
@@ -205,6 +208,13 @@ public class Player extends AnimSprite implements IBoxCollidable {
                 isDamaged = false;
             }
         }
+
+        if(curHp<=0)
+        {
+            MainScene.isGameOver=true;
+            MainScene.isGamePause = true;
+        }
+
         fixDstRect();
     }
     public void Jump()
@@ -238,6 +248,23 @@ public class Player extends AnimSprite implements IBoxCollidable {
     public float GetDir()
     {
         return moveDir;
+    }
+
+    public void Init()
+    {
+        stageLevel = 0;
+        moveDir = 0;
+        x= 13.5f;
+        y=6f;
+        maxHp = 10;
+        curHp = maxHp;
+        reqExp = 10;
+        curExp = 0;
+        expPlus = 1;
+        eTime = 0;
+        isDamaged =false;
+        state = State.running;
+        moveSpeed =0.04f;
     }
 
 

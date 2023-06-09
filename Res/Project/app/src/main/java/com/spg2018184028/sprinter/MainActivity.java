@@ -2,6 +2,7 @@ package com.spg2018184028.sprinter;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -72,6 +73,17 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    public void onClickHomeButton(View view)
+    {
+        MainScene.isGameOver = false;
+        MainScene.isGamePause = false;
+        MainScene.isBossStage =false;
+        MainScene.score = 0;
+        MainScene.player.Init();
+        Intent intent = new Intent(this, TitleActivity.class);
+        startActivity(intent);
+    }
+
     public void onClickJumpButton(View view)
     {
         if(!MainScene.isGamePause)
@@ -119,15 +131,18 @@ public class MainActivity extends AppCompatActivity {
 
     public void onClickPauseButton(View view) {
         //Log.d(TAG, "pause button clicked!!");
-        if(!MainScene.isLevelUpPause)
+        if(!MainScene.isGameOver)
         {
-            if(MainScene.isGamePause)
+            if(!MainScene.isLevelUpPause)
             {
-                MainScene.isGamePause = false;
-            }
-            else
-            {
-                MainScene.isGamePause = true;
+                if(MainScene.isGamePause)
+                {
+                    MainScene.isGamePause = false;
+                }
+                else
+                {
+                    MainScene.isGamePause = true;
+                }
             }
         }
     }

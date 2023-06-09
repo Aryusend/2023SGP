@@ -66,7 +66,15 @@ public class GameView extends View implements Choreographer.FrameCallback {
             borderPaint.setStyle(Paint.Style.STROKE);
             borderPaint.setStrokeWidth(0.1f);
         }
-        GameView.view = this;
+
+        if(GameView.view!=null)
+        {
+
+        }
+        else
+        {
+            GameView.view = this;
+        }
         //setFullScreen();
     }
     @Override

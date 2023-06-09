@@ -116,7 +116,7 @@
                     <View
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="15"
+                        android:layout_weight="14"
                         android:background="@color/gray"/>
 
                     <ImageButton
@@ -130,7 +130,16 @@
                         android:onClick="onClickPauseButton"
                         android:layout_weight="1"/>
 
-
+                    <ImageButton
+                        android:contentDescription="@string/button_description"
+                        android:id="@+id/ButtonHome"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:src="@mipmap/button_home"
+                        android:scaleType="fitCenter"
+                        android:background="@color/gray"
+                        android:onClick="onClickHomeButton"
+                        android:layout_weight="1"/>
 
                 </LinearLayout>
 

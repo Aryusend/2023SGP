@@ -49,47 +49,69 @@ public class Pause extends Sprite implements IBoxCollidable {
         if(MainScene.isGamePause)
         {
             canvas.drawBitmap(bitmap, srcRects[0], dstRect, null);
-            if(MainScene.isLevelUpPause)
-            {
-                canvas.save();
-                canvas.drawText("능력치 업", 9f, 2f, bluePaint2);
-                canvas.drawText("능력치 업", 9f, 2f, bluePaint2);
-                canvas.restore();
 
-                for(int i=0; i<3; i++)
+            if(!MainScene.isGameOver)
+            {
+                if(MainScene.isLevelUpPause)
                 {
                     canvas.save();
-                    canvas.drawRect(Rects[i], borderPaint);
+                    canvas.drawText("능력치 업", 9f, 2f, bluePaint2);
+                    canvas.drawText("능력치 업", 9f, 2f, bluePaint2);
                     canvas.restore();
+
+                    for(int i=0; i<3; i++)
+                    {
+                        canvas.save();
+                        canvas.drawRect(Rects[i], borderPaint);
+                        canvas.restore();
+                    }
+
+                    canvas.save();
+                    canvas.drawText(selectOption[MainScene.levelUpSelect[0]], 2.5f, 6f, blackPaint);
+                    canvas.restore();
+                    canvas.save();
+                    canvas.drawText(selectOption[MainScene.levelUpSelect[1]], 11f, 6f, blackPaint);
+                    canvas.restore();
+                    canvas.save();
+                    canvas.drawText(selectOption[MainScene.levelUpSelect[2]], 19.5f, 6f, blackPaint);
+                    canvas.restore();
+
+
+                    canvas.save();
+                    canvas.drawRect(Rects[MainScene.levelUpIndex], borderPaint2);
+                    canvas.restore();
+
+
                 }
+                else
+                {
+                    canvas.save();
+                    canvas.drawText("일시정지", 8f, 5.5f, bluePaint);
+                    canvas.restore();
 
-                canvas.save();
-                canvas.drawText(selectOption[MainScene.levelUpSelect[0]], 2.5f, 6f, blackPaint);
-                canvas.restore();
-                canvas.save();
-                canvas.drawText(selectOption[MainScene.levelUpSelect[1]], 11f, 6f, blackPaint);
-                canvas.restore();
-                canvas.save();
-                canvas.drawText(selectOption[MainScene.levelUpSelect[2]], 19.5f, 6f, blackPaint);
-                canvas.restore();
+                    canvas.save();
+                    canvas.drawText("점수 >>  "+ MainScene.score , 8f, 8f, blackPaint);
+                    canvas.restore();
 
-
-                canvas.save();
-                canvas.drawRect(Rects[MainScene.levelUpIndex], borderPaint2);
-                canvas.restore();
-
-
+                }
             }
             else
             {
-                canvas.save();
-                canvas.drawText("일시정지", 8f, 5.5f, bluePaint);
-                canvas.restore();
-
-                canvas.save();
-                canvas.drawText("점수 >>  "+ MainScene.score , 8f, 8f, blackPaint);
-                canvas.restore();
-
+                if(MainScene.player.curHp<=0)
+                {
+                    canvas.save();
+                    canvas.drawText("게임 오버", 8f, 5.5f, bluePaint);
+                    canvas.restore();
+                }
+                else
+                {
+                    canvas.save();
+                    canvas.drawText("게임 클리어!", 8f, 5.5f, bluePaint);
+                    canvas.restore();
+                    canvas.save();
+                    canvas.drawText("점수 >>  "+ MainScene.score , 8f, 8f, blackPaint);
+                    canvas.restore();
+                }
             }
         }
     }

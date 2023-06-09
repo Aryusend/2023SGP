@@ -124,12 +124,15 @@ public class BaseScene {
         long elapsedNanos = nanos - prev;
         frameTime = elapsedNanos / 1_000_000_000f;
 
-        if(!MainScene.isGamePause)
+        if(!MainScene.isGameOver)
         {
-            for (ArrayList<IGameObject> objects: layers) {
-                for (int i = objects.size() - 1; i >= 0; i--) {
-                    IGameObject gobj = objects.get(i);
-                    gobj.update();
+            if(!MainScene.isGamePause)
+            {
+                for (ArrayList<IGameObject> objects: layers) {
+                    for (int i = objects.size() - 1; i >= 0; i--) {
+                        IGameObject gobj = objects.get(i);
+                        gobj.update();
+                    }
                 }
             }
         }

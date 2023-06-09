@@ -534,8 +534,8 @@ public class Boss extends AnimSprite implements IBoxCollidable {
             y += dy;
             if(hp==0)
             {
-                BaseScene scene = BaseScene.getTopScene();
-                scene.add(MainScene.Layer.item,new Item(13.5f,0,2));
+                //BaseScene scene = BaseScene.getTopScene();
+                //scene.add(MainScene.Layer.item,new Item(13.5f,0,2));
                 state=State.dead;
             }
         }
@@ -571,6 +571,8 @@ public class Boss extends AnimSprite implements IBoxCollidable {
                 MainScene.bossNum--;
             }
             MainScene.score+=100;
+            MainScene.isGameOver = true;
+            MainScene.isGamePause = true;
         }
     }
 }
